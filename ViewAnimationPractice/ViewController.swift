@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         iOSLabel.hidden = true
         swiftAnimationLabel.hidden = true
         
-        
+        //animateUILabel()
         //draw8WithAnimation()
         animateViewWithUIBezierPath()
         
@@ -67,6 +67,22 @@ class ViewController: UIViewController {
     }
     
     
+    func animateUILabel(){
+        
+        iOSLabel.hidden = false
+        swiftAnimationLabel.hidden = false
+
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: nil, animations: { () -> Void in
+            self.swiftAnimationLabel.center = CGPoint(x: self.swiftAnimationLabel.center.x, y: 200.0)
+        }, completion: nil)
+        
+        
+        UIView.animateWithDuration(3.0, delay: 0.5, usingSpringWithDamping: 0.25, initialSpringVelocity: 10.0, options: nil, animations: { () -> Void in
+            self.iOSLabel.center = CGPoint(x: self.iOSLabel.center.x, y: 350.0)
+            }, completion: nil)
+
+    }
+    
     func animateViewWithUIBezierPath(){
         
         var path = UIBezierPath()
@@ -92,13 +108,13 @@ class ViewController: UIViewController {
         pathLayer.fillColor = nil
         pathLayer.lineWidth = 1.0
         pathLayer.strokeStart = 0.0
-        pathLayer.strokeEnd = 0.05
+        pathLayer.strokeEnd = 0.1
         pathLayer.lineJoin = kCALineJoinBevel
         view.layer.addSublayer(pathLayer)
 
         
         var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
-        pathAnimationStart.toValue = 0.95
+        pathAnimationStart.toValue = 0.8
 
         var pathAnimationStop = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationStop.toValue = 1.0
@@ -109,7 +125,11 @@ class ViewController: UIViewController {
         animationGroup.repeatCount = HUGE
         animationGroup.autoreverses = false
         pathLayer.addAnimation(animationGroup, forKey: "animateView")
-
+    }
+    
+    
+    func makeAnimatingText(){
+        
     }
     
     
