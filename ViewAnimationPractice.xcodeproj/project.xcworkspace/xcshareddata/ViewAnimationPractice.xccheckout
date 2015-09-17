@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EA7B8216-7A32-46AC-92FF-00085DE26BE6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ViewAnimationPractice</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6B94D61702309F1A7619419122E8794A9B02D136</key>
+		<string>https://github.com/manishatinnofied/UIViewAnimation.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ViewAnimationPractice.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6B94D61702309F1A7619419122E8794A9B02D136</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/manishatinnofied/UIViewAnimation.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6B94D61702309F1A7619419122E8794A9B02D136</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6B94D61702309F1A7619419122E8794A9B02D136</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ViewAnimationPractice</string>
+		</dict>
+	</array>
+</dict>
+</plist>
