@@ -13,6 +13,8 @@
 		79E8E17D1BA8470A00743A63 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79E8E17C1BA8470A00743A63 /* Images.xcassets */; };
 		79E8E1801BA8470A00743A63 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E8E17E1BA8470A00743A63 /* LaunchScreen.xib */; };
 		79E8E18C1BA8470A00743A63 /* ViewAnimationPracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E8E18B1BA8470A00743A63 /* ViewAnimationPracticeTests.swift */; };
+		79EC49F11BAB095500B53C40 /* 52084.png in Resources */ = {isa = PBXBuildFile; fileRef = 79EC49F01BAB095500B53C40 /* 52084.png */; };
+		79EC49F31BAB0F9000B53C40 /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = 79EC49F21BAB0F9000B53C40 /* cross.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		79E8E1851BA8470A00743A63 /* ViewAnimationPracticeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewAnimationPracticeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79E8E18A1BA8470A00743A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79E8E18B1BA8470A00743A63 /* ViewAnimationPracticeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAnimationPracticeTests.swift; sourceTree = "<group>"; };
+		79EC49F01BAB095500B53C40 /* 52084.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 52084.png; sourceTree = "<group>"; };
+		79EC49F21BAB0F9000B53C40 /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 		79E8E1731BA8470A00743A63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				79EC49F21BAB0F9000B53C40 /* cross.png */,
+				79EC49F01BAB095500B53C40 /* 52084.png */,
 				79E8E1741BA8470A00743A63 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -192,9 +198,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79EC49F31BAB0F9000B53C40 /* cross.png in Resources */,
 				79E8E17B1BA8470A00743A63 /* Main.storyboard in Resources */,
 				79E8E1801BA8470A00743A63 /* LaunchScreen.xib in Resources */,
 				79E8E17D1BA8470A00743A63 /* Images.xcassets in Resources */,
+				79EC49F11BAB095500B53C40 /* 52084.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +417,7 @@
 				79E8E1911BA8470A00743A63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		79E8E1921BA8470A00743A63 /* Build configuration list for PBXNativeTarget "ViewAnimationPracticeTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +426,7 @@
 				79E8E1941BA8470A00743A63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

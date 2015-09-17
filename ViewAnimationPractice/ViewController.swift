@@ -14,6 +14,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var iOSLabel: UILabel!
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
+    var button1 : UIButton!
+    var button2 : UIButton!
+    var button3 : UIButton!
+
     
     // MARK :- Lifecycle methods
     override func viewDidLoad() {
@@ -26,7 +30,8 @@ class ViewController: UIViewController {
         //animateUILabel()
         //draw8WithAnimation()
         //animateViewWithUIBezierPath()
-        makeAnimatingText()
+        //makeAnimatingText()
+        makeSpringAnimation()
         
     }
     
@@ -130,7 +135,6 @@ class ViewController: UIViewController {
     
     func makeAnimatingText(){
         
-        
         var baseView = UIView(frame: CGRect(x: 0.0, y: 250.0, width:self.view.frame.size.width, height: 1.0))
         baseView.backgroundColor = UIColor.redColor()
         //self.view.addSubview(baseView)
@@ -211,7 +215,7 @@ class ViewController: UIViewController {
         
         
         var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
-        pathAnimationStart.toValue = 0.7
+        pathAnimationStart.toValue = 0.95
         
         var pathAnimationStop = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationStop.toValue = 1.0
@@ -222,23 +226,97 @@ class ViewController: UIViewController {
         animationGroup.repeatCount = HUGE
         animationGroup.autoreverses = true
         pathLayer.addAnimation(animationGroup, forKey: "animateView")
+    
+    }
+    
+    
+    func makeSpringAnimation(){
         
+        let buttonWidth : CGFloat = 50.0
         
-//        var pathLayer = CAShapeLayer()
-//        pathLayer.frame = view.bounds
-//        pathLayer.path = path.CGPath
-//        pathLayer.strokeColor = UIColor.blueColor().CGColor
-//        pathLayer.fillColor = nil
-//        pathLayer.lineWidth = 1.0
-//        pathLayer.lineJoin = kCALineJoinBevel
-//        view.layer.addSublayer(pathLayer)
-//        
-//        
-//        var pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
-//        pathAnimation.duration = 2.0
-//        pathAnimation.fromValue = 0.0
-//        pathAnimation.toValue = 1.0
-//        pathLayer.addAnimation(pathAnimation, forKey: "strokeEnd")
+        //creating center button
+        var centreButton = UIButton()
+        centreButton.frame = CGRectMake((self.view.frame.size.width - buttonWidth)/2.0, 350.0, buttonWidth, 50.0)
+        centreButton.setImage(UIImage(named: "cross.png"), forState: UIControlState.Normal)
+        centreButton.imageEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
+        centreButton.backgroundColor = UIColor.greenColor()
+        centreButton.addTarget(self, action: "rotateButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(centreButton)
+        centreButton.layer.cornerRadius = 50.0/2
+        centreButton.clipsToBounds = true
+        
+        //creating button1
+        button1 = UIButton()
+        button1.frame = CGRectMake((self.view.frame.size.width - buttonWidth)/2.0, 350.0, buttonWidth, 50.0)
+        button1.imageEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
+        button1.backgroundColor = UIColor.purpleColor()
+        self.view.addSubview(button1)
+        self.view.sendSubviewToBack(button1)
+        button1.layer.cornerRadius = 50.0/2
+        button1.clipsToBounds = true
+
+        
+        //creating button2
+        button2 = UIButton()
+        button2.frame = CGRectMake((self.view.frame.size.width - buttonWidth)/2.0, 350.0, buttonWidth, 50.0)
+        button2.imageEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
+        button2.backgroundColor = UIColor.purpleColor()
+        self.view.addSubview(button2)
+        self.view.sendSubviewToBack(button2)
+        button2.layer.cornerRadius = 50.0/2
+        button2.clipsToBounds = true
+
+        
+        //creating button3
+        button3 = UIButton()
+        button3.frame = CGRectMake((self.view.frame.size.width - buttonWidth)/2.0, 350.0, buttonWidth, 50.0)
+        button3.imageEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
+        button3.backgroundColor = UIColor.purpleColor()
+        self.view.addSubview(button3)
+        self.view.sendSubviewToBack(button3)
+        button3.layer.cornerRadius = 50.0/2
+        button3.clipsToBounds = true
+    }
+    
+    
+    func rotateButton(sender : UIButton){
+        sender.selected = !sender.selected
+        
+        if sender.selected {
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+               
+                //rotate centre button
+                sender.transform = CGAffineTransformMakeRotation(CGFloat(135 * M_PI/180))
+                sender.backgroundColor = UIColor.orangeColor()
+                
+                //animate button 1
+                self.button1.frame = CGRectMake(self.button1.frame.origin.x, self.button1.frame.origin.y - 100.0, self.button1.frame.size.width, self.button1.frame.size.height)
+                
+                //animate button 2
+                self.button2.frame = CGRectMake(self.button2.frame.origin.x, self.button2.frame.origin.y - 200.0, self.button2.frame.size.width, self.button2.frame.size.height)
+                
+                //animate button 3
+                self.button3.frame = CGRectMake(self.button3.frame.origin.x, self.button3.frame.origin.y - 300.0, self.button3.frame.size.width, self.button3.frame.size.height)
+
+                }, completion: nil)
+        }else{
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+               
+                //rotate centre button
+                sender.transform = CGAffineTransformMakeRotation(CGFloat(-135 * M_PI/180))
+                sender.backgroundColor = UIColor.greenColor()
+                
+                //animate button 1
+                self.button1.frame = CGRectMake(self.button1.frame.origin.x, 350.0, self.button1.frame.size.width, self.button1.frame.size.height)
+                
+                //animate button 2
+                self.button2.frame = CGRectMake(self.button2.frame.origin.x, 350.0, self.button2.frame.size.width, self.button2.frame.size.height)
+                
+                //animate button 3
+                self.button3.frame = CGRectMake(self.button3.frame.origin.x, 350.0, self.button3.frame.size.width, self.button3.frame.size.height)
+
+                }, completion: nil)
+        }
     }
     
     
