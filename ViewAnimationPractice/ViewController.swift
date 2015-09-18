@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
     let buttonWidth : CGFloat = 50.0
-    let numberOfButtons : Int = 7
+    let numberOfButtons : Int = 4
     var button : UIButton!
     var arrayOfButtons : [UIButton] = []
 
@@ -369,7 +369,7 @@ class ViewController: UIViewController {
                         for backButton in self.arrayOfButtons{
                             if backButton.tag == i{
                                 //animate button
-                                var radius : Double = 200.0
+                                var radius : Double = 150.0
                                 var angle : Double = Double(i) * 90.0 / Double(self.numberOfButtons - 1)
                                 
                                 var originX : CGFloat = CGFloat (radius * cos(M_PI / 180.0 * angle))
@@ -386,7 +386,7 @@ class ViewController: UIViewController {
                 
                 //rotate centre button
                 sender.transform = CGAffineTransformMakeRotation(CGFloat(-135 * M_PI/180))
-                sender.backgroundColor = UIColor.orangeColor()
+                sender.backgroundColor = UIColor.greenColor()
 
                     for i in 0..<self.numberOfButtons{
                         for buttonAnimated in self.arrayOfButtons{
@@ -400,7 +400,8 @@ class ViewController: UIViewController {
     
     
     func animateButtonsCentreOutwards(sender: UIButton){
-        
+        sender.showsTouchWhenHighlighted = true
     }
+    
 }
 
