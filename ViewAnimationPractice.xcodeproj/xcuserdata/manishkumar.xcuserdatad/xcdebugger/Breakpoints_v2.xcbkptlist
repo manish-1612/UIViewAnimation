@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewAnimationPractice/ViewController.swift"
-            timestampString = "464196937.20382"
+            timestampString = "464246650.417216"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
-            landmarkName = "rotateButton(_:)"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "showButtonVertically(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewAnimationPractice/ViewController.swift"
-            timestampString = "464198210.614138"
+            timestampString = "464246650.417216"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
-            landmarkName = "rotateButton(_:)"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "showButtonVertically(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
