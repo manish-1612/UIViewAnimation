@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     
+    @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var iOSLabel: UILabel!
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
         
         iOSLabel.hidden = true
         swiftAnimationLabel.hidden = true
+        optionsButton.hidden = true
         
         //animateUILabel()
         //draw8WithAnimation()
@@ -240,7 +242,11 @@ class ViewController: UIViewController {
         
         
         //for central throw animation
-        createButtonForCentralThrowAnimation()
+        //createButtonForCentralThrowAnimation()
+        
+        
+        //for right inwards animation
+        createButtonsWithInwarsAnimation()
     }
     
     
@@ -403,5 +409,67 @@ class ViewController: UIViewController {
         sender.showsTouchWhenHighlighted = true
     }
     
+    
+    
+    
+    //MARK:- animate buttons for right incoming animation
+    func createButtonsWithInwarsAnimation(){
+        let startOrigin : CGFloat = 70.0
+        
+        optionsButton.hidden = false
+        
+        arrayOfButtons = [UIButton]()
+
+        for i in 0..<self.numberOfButtons{
+            
+            var buttonForAnimation = UIButton()
+            buttonForAnimation.frame = CGRectMake(self.view.frame.size.width + 70.0, startOrigin + (70.0 * CGFloat(i)) , buttonWidth, 50.0)
+            buttonForAnimation.tag = i
+            buttonForAnimation.setTitle(String(i), forState:.Normal)
+            buttonForAnimation.backgroundColor = UIColor.greenColor()
+            //buttonForAnimation.addTarget(self, action: "showButtonVertically:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.view.addSubview(buttonForAnimation)
+            buttonForAnimation.layer.cornerRadius = 50.0/2
+            buttonForAnimation.clipsToBounds = true
+            arrayOfButtons.append(buttonForAnimation)
+        }
+    }
+
+    @IBAction func createButtonInwardsAnimation(sender: AnyObject) {
+        createAnimationsForButtonWithSender(sender as! UIButton)
+    }
+    
+    
+    func createAnimationsForButtonWithSender(centralButton : UIButton){
+        
+        centralButton.selected = !centralButton.selected
+        
+        if centralButton.selected{
+            for i in 0..<self.numberOfButtons{
+                for buttonAnimated in self.arrayOfButtons{
+                    if buttonAnimated.tag == i{
+                        UIView.animateWithDuration(0.5, delay: Double(i)*0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 20.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                            buttonAnimated.frame = CGRectMake(self.view.frame.size.width - 70.0, buttonAnimated.frame.origin.y , buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
+                            }, completion: nil)
+                    }
+                }
+            }
+        }else{
+            for i in 0..<self.numberOfButtons{
+                for buttonAnimated in self.arrayOfButtons{
+                    if buttonAnimated.tag == i{
+                        UIView.animateWithDuration(0.5, delay: Double(i)*0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 20.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                            buttonAnimated.frame = CGRectMake(self.view.frame.size.width + 70.0, buttonAnimated.frame.origin.y , buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
+                            }, completion: nil)
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    
+
+
 }
 

@@ -28,12 +28,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4e-9z-eFA">
+                                <rect key="frame" x="259" y="20" width="68" height="30"/>
+                                <state key="normal" title="Options">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createButtonInwardsAnimation:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5bR-at-bMX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="iOSLabel" destination="MKS-Oo-P92" id="er0-ea-Uh9"/>
+                        <outlet property="optionsButton" destination="h4e-9z-eFA" id="SPg-vq-7em"/>
                         <outlet property="swiftAnimationLabel" destination="qTk-4T-UDT" id="q6f-oI-adv"/>
                     </connections>
                 </viewController>
