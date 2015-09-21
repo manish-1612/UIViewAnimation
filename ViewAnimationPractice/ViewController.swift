@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
     let buttonWidth : CGFloat = 50.0
-    let numberOfButtons : Int = 4
+    let numberOfButtons : Int = 5
     var button : UIButton!
     var arrayOfButtons : [UIButton] = []
 
@@ -246,7 +246,11 @@ class ViewController: UIViewController {
         
         
         //for right inwards animation
-        createButtonsWithInwarsAnimation()
+        //createButtonsWithInwarsAnimation()
+        
+        
+        //for clockwise animation of button
+        createClockWiseButtonAnimation()
     }
     
     
@@ -465,11 +469,94 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
     }
     
     
+    //MARK:- animate buttons with clock animation
+    func createClockWiseButtonAnimation(){
+        //creating center button
+        button = UIButton()
+        button.frame = CGRectMake((self.view.frame.size.width - 50.0)/2.0, (self.view.frame.size.height - 50.0)/2.0, buttonWidth, buttonWidth)
+        button.setImage(UIImage(named: "cross.png"), forState: UIControlState.Normal)
+        button.imageEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
+        button.backgroundColor = UIColor.greenColor()
+        button.addTarget(self, action: "showButtonClockwiseOutwards:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(button)
+        button.layer.cornerRadius = 50.0/2
+        button.clipsToBounds = true
+        
+        setButtonBehindMainButton("animateButtonsClockwiseOutwards:")
+    }
 
+    
+    
+    func showButtonClockwiseOutwards(sender : UIButton){
+        sender.selected = !sender.selected
+        
+        if sender.selected {
+            
+            
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                
+                //rotate centre button
+                sender.transform = CGAffineTransformMakeRotation(CGFloat(135 * M_PI/180))
+                sender.backgroundColor = UIColor.orangeColor()
+
+            }, completion: nil)
+            
+            
+            
+            
+            for i in 0..<self.numberOfButtons{
+                for backButton in self.arrayOfButtons{
+                    if backButton.tag == i{
+                        
+                        var radius : Double = 100.0
+                        var angle : Double = Double(i) * 180.0 / Double(self.numberOfButtons - 1)
+                        
+                        var originX : CGFloat = CGFloat (radius * sin(M_PI / 180.0 * angle))
+                        var originY : CGFloat = CGFloat (radius * cos(M_PI / 180.0 * angle))
+                        
+                        UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                            backButton.center = CGPoint(x: originX + self.button.center.x, y: (self.button.center.y - originY) )
+
+                        }, completion: nil)
+
+                    }
+                }
+            }
+        }else{
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                
+                //rotate centre button
+                sender.transform = CGAffineTransformMakeRotation(CGFloat(-135 * M_PI/180))
+                sender.backgroundColor = UIColor.greenColor()
+                
+                }, completion: nil)
+            
+            
+            
+            
+            for i in 0..<self.numberOfButtons{
+                for backButton in self.arrayOfButtons{
+                    if backButton.tag == self.numberOfButtons - 1 - i{
+                        
+                        UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                            backButton.center = CGPoint(x: self.button.center.x, y: self.button.center.y)
+                            
+                            }, completion: nil)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func animateButtonsClockwiseOutwards(sender: UIButton){
+        sender.showsTouchWhenHighlighted = true
+    }
+    
 
 }
 
