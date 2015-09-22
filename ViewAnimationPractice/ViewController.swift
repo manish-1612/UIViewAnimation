@@ -535,17 +535,14 @@ class ViewController: UIViewController {
                 }, completion: nil)
             
             
-            
-            
             for i in 0..<self.numberOfButtons{
                 for backButton in self.arrayOfButtons{
                     if backButton.tag == self.numberOfButtons - 1 - i{
                         
-                        UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                        UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.9, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
                             backButton.center = CGPoint(x: self.button.center.x, y: self.button.center.y)
                             
                             }, completion: nil)
-                        
                     }
                 }
             }
