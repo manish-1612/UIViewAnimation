@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
     let buttonDiameter : CGFloat = 50.0
-    let numberOfButtons : Int = 4
+    let numberOfButtons : Int = 8
     var button : UIButton!
     let perRowButton : Int = 3
     var arrayOfButtons : [UIButton] = []
@@ -585,7 +585,8 @@ class ViewController: UIViewController {
                 buttonForAnimation.tag = j * perRowButton + i
                 buttonForAnimation.setTitle(String(j * perRowButton + i), forState:.Normal)
                 buttonForAnimation.backgroundColor = UIColor.purpleColor()
-                buttonForAnimation.addTarget(self, action: "animateButtonByGrowAnimation:", forControlEvents: .TouchUpInside)
+                buttonForAnimation.addTarget(self, action: "animateButtonByGrowAnimation:", forControlEvents: UIControlEvents.TouchDown)
+                buttonForAnimation.addTarget(self, action: "animateButtonByShrinkAnimation:", forControlEvents: UIControlEvents.TouchUpInside | UIControlEvents.TouchDragOutside)
                 self.view.addSubview(buttonForAnimation)
                 buttonForAnimation.layer.cornerRadius = buttonDiameter/2
                 buttonForAnimation.clipsToBounds = true
@@ -599,13 +600,13 @@ class ViewController: UIViewController {
         for k in 0..<numberOfButtonInLastRow{
             var buttonForAnimation = CustomButton()
             var xOrigin : CGFloat = regularPaddingInLastRow + (regularPaddingInLastRow * CGFloat(k)) + (buttonDiameter * CGFloat(k))
-            buttonForAnimation.visited = false
             var yOrigin : CGFloat = lastAddedButton.frame.origin.y + buttonDiameter + regularPadding
             buttonForAnimation.frame = CGRectMake(xOrigin , yOrigin, buttonDiameter, buttonDiameter)
             buttonForAnimation.tag = numberOfRowsWithAllEntry * perRowButton + k
             buttonForAnimation.setTitle(String(numberOfRowsWithAllEntry * perRowButton + k), forState:.Normal)
             buttonForAnimation.backgroundColor = UIColor.purpleColor()
-            buttonForAnimation.addTarget(self, action: "animateButtonByGrowAnimation:", forControlEvents: .TouchUpInside)
+            buttonForAnimation.addTarget(self, action: "animateButtonByGrowAnimation:", forControlEvents: UIControlEvents.TouchDown)
+            buttonForAnimation.addTarget(self, action: "animateButtonByShrinkAnimation:", forControlEvents: UIControlEvents.TouchUpInside | UIControlEvents.TouchDragOutside)
             self.view.addSubview(buttonForAnimation)
             buttonForAnimation.layer.cornerRadius = buttonDiameter/2
             buttonForAnimation.clipsToBounds = true
@@ -642,17 +643,26 @@ class ViewController: UIViewController {
     }
     
     func animateButtonByGrowAnimation(sender: UIButton){
-        sender.showsTouchWhenHighlighted = true
+
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+            sender.transform = CGAffineTransformMakeScale(1.3, 1.3)
+        }, completion: nil)
+    }
+    
+    
+    func animateButtonByShrinkAnimation(sender: UIButton){
         
-        for i in 0..<self.numberOfButtons{
-            for buttonAnimated in self.arrayOfVisitedButtons{
-                if buttonAnimated.tag == i{
-                    UIView.animateWithDuration(0.6, delay: Double(i)*0.1, usingSpringWithDamping: 0.65, initialSpringVelocity: 10.0, options: .CurveEaseInOut , animations: { () -> Void in
-                        buttonAnimated.frame = CGRectMake(buttonAnimated.frame.origin.x, buttonAnimated.frame.origin.y + self.view.frame.size.height  , buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
-                        }, completion: nil)
-                }
-            }
+        
+        
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+            sender.transform = CGAffineTransformMakeScale(1.0, 1.0)
+        }) { (Bool) -> Void in
+            UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                //code for exit animation
+            
+                }, completion: nil)
         }
     }
-}
 
+
+}
