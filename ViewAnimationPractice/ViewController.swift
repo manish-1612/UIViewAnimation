@@ -15,11 +15,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var iOSLabel: UILabel!
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
-    let buttonWidth : CGFloat = 50.0
-    let numberOfButtons : Int = 5
+    let buttonDiameter : CGFloat = 50.0
+    let numberOfButtons : Int = 4
     var button : UIButton!
+    let perRowButton : Int = 3
     var arrayOfButtons : [UIButton] = []
-
+    var arrayOfCustomButtons : [CustomButton] = []
+    var arrayOfVisitedButtons : [CustomButton] = []
     
     // MARK :- Lifecycle methods
     override func viewDidLoad() {
@@ -250,7 +252,11 @@ class ViewController: UIViewController {
         
         
         //for clockwise animation of button
-        createClockWiseButtonAnimation()
+        //createClockWiseButtonAnimation()
+        
+        
+        //animate buttons with fall animation
+        createButtonForDownwardFallAnimation()
     }
     
     
@@ -261,14 +267,14 @@ class ViewController: UIViewController {
         //creating buttons
         for i in 0..<numberOfButtons{
             var backButton = UIButton()
-            backButton.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, buttonWidth, buttonWidth)
+            backButton.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, buttonDiameter, buttonDiameter)
             backButton.tag = i
             backButton.setTitle(String(i), forState:.Normal)
             backButton.backgroundColor = UIColor.purpleColor()
             backButton.addTarget(self, action: targetSelector, forControlEvents: .TouchUpInside)
             self.view.addSubview(backButton)
             self.view.sendSubviewToBack(backButton)
-            backButton.layer.cornerRadius = 50.0/2
+            backButton.layer.cornerRadius = buttonDiameter/2
             backButton.clipsToBounds = true
             arrayOfButtons.append(backButton)
         }
@@ -280,13 +286,13 @@ class ViewController: UIViewController {
     func createButtonForVerticalAnimation(){
         //creating center button
         button = UIButton()
-        button.frame = CGRectMake((self.view.frame.size.width - buttonWidth)/2.0, 400.0, buttonWidth, 50.0)
+        button.frame = CGRectMake((self.view.frame.size.width - buttonDiameter)/2.0, 400.0, buttonDiameter, buttonDiameter)
         button.setImage(UIImage(named: "cross.png"), forState: UIControlState.Normal)
         button.imageEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
         button.backgroundColor = UIColor.greenColor()
         button.addTarget(self, action: "showButtonVertically:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(button)
-        button.layer.cornerRadius = 50.0/2
+        button.layer.cornerRadius = buttonDiameter/2
         button.clipsToBounds = true
         
         setButtonBehindMainButton("animateButtonsHorizontally:")
@@ -352,13 +358,13 @@ class ViewController: UIViewController {
     func createButtonForCentralThrowAnimation(){
         //creating center button
         button = UIButton()
-        button.frame = CGRectMake(20.0, self.view.frame.size.height - (50.0 + 20.0), buttonWidth, buttonWidth)
+        button.frame = CGRectMake(20.0, self.view.frame.size.height - (buttonDiameter + 20.0), buttonDiameter, buttonDiameter)
         button.setImage(UIImage(named: "cross.png"), forState: UIControlState.Normal)
         button.imageEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
         button.backgroundColor = UIColor.greenColor()
         button.addTarget(self, action: "showButtonAnimationCentred:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(button)
-        button.layer.cornerRadius = 50.0/2
+        button.layer.cornerRadius = buttonDiameter/2
         button.clipsToBounds = true
         
         setButtonBehindMainButton("animateButtonsCentreOutwards:")
@@ -427,13 +433,13 @@ class ViewController: UIViewController {
         for i in 0..<self.numberOfButtons{
             
             var buttonForAnimation = UIButton()
-            buttonForAnimation.frame = CGRectMake(self.view.frame.size.width + 70.0, startOrigin + (70.0 * CGFloat(i)) , buttonWidth, 50.0)
+            buttonForAnimation.frame = CGRectMake(self.view.frame.size.width + 70.0, startOrigin + (70.0 * CGFloat(i)) , buttonDiameter, buttonDiameter)
             buttonForAnimation.tag = i
             buttonForAnimation.setTitle(String(i), forState:.Normal)
             buttonForAnimation.backgroundColor = UIColor.greenColor()
             //buttonForAnimation.addTarget(self, action: "showButtonVertically:", forControlEvents: UIControlEvents.TouchUpInside)
             self.view.addSubview(buttonForAnimation)
-            buttonForAnimation.layer.cornerRadius = 50.0/2
+            buttonForAnimation.layer.cornerRadius = buttonDiameter/2
             buttonForAnimation.clipsToBounds = true
             arrayOfButtons.append(buttonForAnimation)
         }
@@ -476,13 +482,13 @@ class ViewController: UIViewController {
     func createClockWiseButtonAnimation(){
         //creating center button
         button = UIButton()
-        button.frame = CGRectMake((self.view.frame.size.width - 50.0)/2.0, (self.view.frame.size.height - 50.0)/2.0, buttonWidth, buttonWidth)
+        button.frame = CGRectMake((self.view.frame.size.width - buttonDiameter)/2.0, (self.view.frame.size.height - buttonDiameter)/2.0, buttonDiameter, buttonDiameter)
         button.setImage(UIImage(named: "cross.png"), forState: UIControlState.Normal)
         button.imageEdgeInsets = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)
         button.backgroundColor = UIColor.greenColor()
         button.addTarget(self, action: "showButtonClockwiseOutwards:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(button)
-        button.layer.cornerRadius = 50.0/2
+        button.layer.cornerRadius = buttonDiameter/2
         button.clipsToBounds = true
         
         setButtonBehindMainButton("animateButtonsClockwiseOutwards:")
@@ -506,7 +512,6 @@ class ViewController: UIViewController {
             
             
             
-            
             for i in 0..<self.numberOfButtons{
                 for backButton in self.arrayOfButtons{
                     if backButton.tag == i{
@@ -521,7 +526,6 @@ class ViewController: UIViewController {
                             backButton.center = CGPoint(x: originX + self.button.center.x, y: (self.button.center.y - originY) )
 
                         }, completion: nil)
-
                     }
                 }
             }
@@ -549,11 +553,106 @@ class ViewController: UIViewController {
         }
     }
     
-    
     func animateButtonsClockwiseOutwards(sender: UIButton){
         sender.showsTouchWhenHighlighted = true
     }
     
-
+    
+    
+    //MARK:- animate buttons fall animation
+    func createButtonForDownwardFallAnimation(){
+        
+        arrayOfCustomButtons = [CustomButton]()
+        arrayOfVisitedButtons = [CustomButton]()
+        
+        let numberOfRowsWithAllEntry : Int = numberOfButtons / perRowButton
+        let numberOfButtonInLastRow : Int = numberOfButtons % perRowButton
+        let regularPadding : CGFloat = (self.view.frame.size.width - (buttonDiameter * CGFloat(perRowButton))) / CGFloat(perRowButton+1)
+        
+        var yOriginFactor : CGFloat = 0.0
+        if numberOfButtonInLastRow > 0 {
+             yOriginFactor = (self.view.frame.size.height - ((regularPadding * CGFloat(numberOfRowsWithAllEntry)) + (buttonDiameter * CGFloat(numberOfRowsWithAllEntry + 1))))/2.0
+        }else{
+            yOriginFactor = (self.view.frame.size.height - ((regularPadding * CGFloat(numberOfRowsWithAllEntry - 1 )) + (buttonDiameter * CGFloat(numberOfRowsWithAllEntry))))/2.0
+        }
+        
+        for j in 0..<numberOfRowsWithAllEntry{
+            for i in 0..<perRowButton{
+                var buttonForAnimation = CustomButton()
+                var xOrigin : CGFloat = regularPadding + (regularPadding * CGFloat(i)) + (buttonDiameter * CGFloat(i))
+                var yOrigin : CGFloat = self.view.frame.size.height + (regularPadding * CGFloat(j)) + (buttonDiameter * CGFloat(j))
+                buttonForAnimation.frame = CGRectMake(xOrigin , yOrigin, buttonDiameter, buttonDiameter)
+                buttonForAnimation.tag = j * perRowButton + i
+                buttonForAnimation.setTitle(String(j * perRowButton + i), forState:.Normal)
+                buttonForAnimation.backgroundColor = UIColor.purpleColor()
+                buttonForAnimation.addTarget(self, action: "animateButtonByGrowAnimation:", forControlEvents: .TouchUpInside)
+                self.view.addSubview(buttonForAnimation)
+                buttonForAnimation.layer.cornerRadius = buttonDiameter/2
+                buttonForAnimation.clipsToBounds = true
+                arrayOfCustomButtons.append(buttonForAnimation)
+            }
+        }
+        
+        
+        let lastAddedButton : CustomButton = arrayOfCustomButtons.last!
+        let regularPaddingInLastRow : CGFloat = (self.view.frame.size.width - (buttonDiameter * CGFloat(numberOfButtonInLastRow))) / CGFloat(numberOfButtonInLastRow+1)
+        for k in 0..<numberOfButtonInLastRow{
+            var buttonForAnimation = CustomButton()
+            var xOrigin : CGFloat = regularPaddingInLastRow + (regularPaddingInLastRow * CGFloat(k)) + (buttonDiameter * CGFloat(k))
+            buttonForAnimation.visited = false
+            var yOrigin : CGFloat = lastAddedButton.frame.origin.y + buttonDiameter + regularPadding
+            buttonForAnimation.frame = CGRectMake(xOrigin , yOrigin, buttonDiameter, buttonDiameter)
+            buttonForAnimation.tag = numberOfRowsWithAllEntry * perRowButton + k
+            buttonForAnimation.setTitle(String(numberOfRowsWithAllEntry * perRowButton + k), forState:.Normal)
+            buttonForAnimation.backgroundColor = UIColor.purpleColor()
+            buttonForAnimation.addTarget(self, action: "animateButtonByGrowAnimation:", forControlEvents: .TouchUpInside)
+            self.view.addSubview(buttonForAnimation)
+            buttonForAnimation.layer.cornerRadius = buttonDiameter/2
+            buttonForAnimation.clipsToBounds = true
+            arrayOfCustomButtons.append(buttonForAnimation)
+        }
+        
+        flowButtonUpwards(yOriginFactor)
+    }
+    
+    
+    
+    func flowButtonUpwards(yOriginFactor : CGFloat){
+        for i in 0..<self.numberOfButtons{
+           
+            var randomIndex = Int(arc4random_uniform(UInt32(arrayOfCustomButtons.count)))
+            var buttonToVerify = arrayOfCustomButtons[randomIndex]
+            
+            for buttonAnimated in self.arrayOfCustomButtons{
+                
+                
+                if buttonAnimated.tag == buttonToVerify.tag {
+                
+                    UIView.animateWithDuration(0.6, delay: Double(i)*0.1, usingSpringWithDamping: 0.65, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                        buttonAnimated.frame = CGRectMake(buttonAnimated.frame.origin.x, buttonAnimated.frame.origin.y - self.view.frame.size.height + yOriginFactor , buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
+                        }, completion: nil)
+                    
+                    arrayOfCustomButtons.removeAtIndex(randomIndex)
+                    arrayOfVisitedButtons.append(buttonAnimated)
+                    
+                    break
+                }
+            }
+        }
+    }
+    
+    func animateButtonByGrowAnimation(sender: UIButton){
+        sender.showsTouchWhenHighlighted = true
+        
+        for i in 0..<self.numberOfButtons{
+            for buttonAnimated in self.arrayOfVisitedButtons{
+                if buttonAnimated.tag == i{
+                    UIView.animateWithDuration(0.6, delay: Double(i)*0.1, usingSpringWithDamping: 0.65, initialSpringVelocity: 10.0, options: .CurveEaseInOut , animations: { () -> Void in
+                        buttonAnimated.frame = CGRectMake(buttonAnimated.frame.origin.x, buttonAnimated.frame.origin.y + self.view.frame.size.height  , buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
+                        }, completion: nil)
+                }
+            }
+        }
+    }
 }
 
