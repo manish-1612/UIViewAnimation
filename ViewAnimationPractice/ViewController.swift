@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
     let buttonDiameter : CGFloat = 50.0
-    let numberOfButtons : Int = 8
+    let numberOfButtons : Int = 3
     var button : UIButton!
     let perRowButton : Int = 3
     var arrayOfButtons : [UIButton] = []
@@ -652,15 +652,31 @@ class ViewController: UIViewController {
     
     func animateButtonByShrinkAnimation(sender: UIButton){
         
-        
-        
         UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
             sender.transform = CGAffineTransformMakeScale(1.0, 1.0)
         }) { (Bool) -> Void in
-            UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
-                //code for exit animation
             
-                }, completion: nil)
+                for i in 0..<self.numberOfButtons{
+                    
+                    var randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfVisitedButtons.count)))
+                    var buttonToVerify = self.arrayOfVisitedButtons[randomIndex]
+                    
+                    for buttonAnimated in self.arrayOfVisitedButtons{
+                        
+                        if buttonAnimated.tag == buttonToVerify.tag {
+                            
+                            UIView.animateWithDuration(0.7, delay: Double(i)*0.15, usingSpringWithDamping: 0.9
+                                , initialSpringVelocity: 1.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                                buttonAnimated.frame = CGRectMake(buttonAnimated.frame.origin.x, buttonAnimated.frame.origin.y + self.view.frame.size.height, buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
+                                    
+                                }, completion: nil)
+                            
+                            self.arrayOfVisitedButtons.removeAtIndex(randomIndex)
+                            
+                            break
+                        }
+                    }
+                }
         }
     }
 
