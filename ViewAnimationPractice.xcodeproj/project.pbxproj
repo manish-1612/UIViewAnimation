@@ -165,6 +165,8 @@
 		79E8E1681BA8470A00743A63 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Innofied Solutions Pvt. Ltd.";
 				TargetAttributes = {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController{
 
     
     @IBOutlet weak var optionsButton: UIButton!
@@ -16,12 +16,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
     let buttonDiameter : CGFloat = 50.0
-    let numberOfButtons : Int = 3
+    let numberOfButtons : Int = 5
     var button : UIButton!
     let perRowButton : Int = 3
     var arrayOfButtons : [UIButton] = []
     var arrayOfCustomButtons : [CustomButton] = []
     var arrayOfVisitedButtons : [CustomButton] = []
+    var shadowBackgroundColor = UIColor(white: 1.0, alpha: 0.3)
+    var shadowForegroundColor = UIColor.whiteColor()
+    
+    var shadowWidth : CGFloat = 25.0
+    var repeatCount = HUGE;
+    var duration : NSTimeInterval = 3.0;
     
     // MARK :- Lifecycle methods
     override func viewDidLoad() {
@@ -43,7 +49,7 @@ class ViewController: UIViewController {
     //MARK:- draw 8 with text overflow
     func draw8WithAnimation(){
         
-        var path = UIBezierPath()
+        let path = UIBezierPath()
         
         // ----------------------------------------------------------------
         //  drawing parth for 8
@@ -60,7 +66,7 @@ class ViewController: UIViewController {
         path.closePath()
         
         
-        var pathLayer = CAShapeLayer()
+        let pathLayer = CAShapeLayer()
         pathLayer.frame = view.bounds
         pathLayer.path = path.CGPath
         pathLayer.strokeColor = UIColor.redColor().CGColor
@@ -70,7 +76,7 @@ class ViewController: UIViewController {
         view.layer.addSublayer(pathLayer)
         
         
-        var pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimation.duration = 2.0
         pathAnimation.fromValue = 0.0
         pathAnimation.toValue = 1.0
@@ -84,12 +90,12 @@ class ViewController: UIViewController {
         iOSLabel.hidden = false
         swiftAnimationLabel.hidden = false
 
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: [], animations: { () -> Void in
             self.swiftAnimationLabel.center = CGPoint(x: self.swiftAnimationLabel.center.x, y: 200.0)
         }, completion: nil)
         
         
-        UIView.animateWithDuration(3.0, delay: 0.5, usingSpringWithDamping: 0.25, initialSpringVelocity: 10.0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(3.0, delay: 0.5, usingSpringWithDamping: 0.25, initialSpringVelocity: 10.0, options: [], animations: { () -> Void in
             self.iOSLabel.center = CGPoint(x: self.iOSLabel.center.x, y: 350.0)
             }, completion: nil)
 
@@ -98,7 +104,7 @@ class ViewController: UIViewController {
     //MARK:- draw 8 using stroke animation
     func animateViewWithUIBezierPath(){
         
-        var path = UIBezierPath()
+        let path = UIBezierPath()
         // ----------------------------------------------------------------
         //  drawing path for 8
         // ----------------------------------------------------------------
@@ -114,7 +120,7 @@ class ViewController: UIViewController {
         path.closePath()
         
         
-        var pathLayer = CAShapeLayer()
+        let pathLayer = CAShapeLayer()
         pathLayer.frame = view.bounds
         pathLayer.path = path.CGPath
         pathLayer.strokeColor = UIColor.blueColor().CGColor
@@ -125,13 +131,13 @@ class ViewController: UIViewController {
         pathLayer.lineJoin = kCALineJoinBevel
         view.layer.addSublayer(pathLayer)
 
-        var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
+        let pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         pathAnimationStart.toValue = 0.8
 
-        var pathAnimationStop = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimationStop = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationStop.toValue = 1.0
         
-        var animationGroup = CAAnimationGroup()
+        let animationGroup = CAAnimationGroup()
         animationGroup.animations = [pathAnimationStart , pathAnimationStop]
         animationGroup.duration = 0.5
         animationGroup.repeatCount = HUGE
@@ -142,16 +148,16 @@ class ViewController: UIViewController {
     //MARK:- animate text(not working now)
     func makeAnimatingText(){
         
-        var baseView = UIView(frame: CGRect(x: 0.0, y: 250.0, width:self.view.frame.size.width, height: 1.0))
+        let baseView = UIView(frame: CGRect(x: 0.0, y: 250.0, width:self.view.frame.size.width, height: 1.0))
         baseView.backgroundColor = UIColor.redColor()
         //self.view.addSubview(baseView)
         
-        var baseView2 = UIView(frame: CGRect(x: 0.0, y: 235.0, width:self.view.frame.size.width, height: 1.0))
+        let baseView2 = UIView(frame: CGRect(x: 0.0, y: 235.0, width:self.view.frame.size.width, height: 1.0))
         baseView2.backgroundColor = UIColor.redColor()
         //self.view.addSubview(baseView2)
 
         
-        var path = UIBezierPath()
+        let path = UIBezierPath()
         // ----------------------------------------------------------------
         //  drawing path for MANISH
         // ----------------------------------------------------------------
@@ -209,7 +215,7 @@ class ViewController: UIViewController {
         path.addCurveToPoint(CGPoint(x: 135.0, y: 248.0), controlPoint1: CGPoint(x: 131.5, y: 250.0), controlPoint2: CGPoint(x: 133.5, y: 250.0))
         
         
-        var pathLayer = CAShapeLayer()
+        let pathLayer = CAShapeLayer()
         pathLayer.frame = view.bounds
         pathLayer.path = path.CGPath
         pathLayer.strokeColor = UIColor.blueColor().CGColor
@@ -221,13 +227,13 @@ class ViewController: UIViewController {
         view.layer.addSublayer(pathLayer)
         
         
-        var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
+        let pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         pathAnimationStart.toValue = 0.95
         
-        var pathAnimationStop = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimationStop = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationStop.toValue = 1.0
         
-        var animationGroup = CAAnimationGroup()
+        let animationGroup = CAAnimationGroup()
         animationGroup.animations = [pathAnimationStart , pathAnimationStop]
         animationGroup.duration = 5.0
         animationGroup.repeatCount = HUGE
@@ -256,7 +262,11 @@ class ViewController: UIViewController {
         
         
         //animate buttons with fall animation
-        createButtonForDownwardFallAnimation()
+        //createButtonForDownwardFallAnimation()
+        
+        
+        //create slide To unlock efect
+        createSlideToUnlockEffect()
     }
     
     
@@ -266,7 +276,7 @@ class ViewController: UIViewController {
         
         //creating buttons
         for i in 0..<numberOfButtons{
-            var backButton = UIButton()
+            let backButton = UIButton()
             backButton.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, buttonDiameter, buttonDiameter)
             backButton.tag = i
             backButton.setTitle(String(i), forState:.Normal)
@@ -304,7 +314,7 @@ class ViewController: UIViewController {
         sender.selected = !sender.selected
         
         if sender.selected {
-            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                
                 //rotate centre button
                 sender.transform = CGAffineTransformMakeRotation(CGFloat(135 * M_PI/180))
@@ -314,7 +324,7 @@ class ViewController: UIViewController {
                         for backButton in self.arrayOfButtons{
                             if backButton.tag == i{
                                 //animate button 1
-                                var yOriginFactor : CGFloat = CGFloat(CGFloat(i + 1) * 75.0)
+                                let yOriginFactor : CGFloat = CGFloat(CGFloat(i + 1) * 75.0)
                                 
                                 backButton.frame = CGRectMake(backButton.frame.origin.x, backButton.frame.origin.y - yOriginFactor, backButton.frame.size.width, backButton.frame.size.height)
                             }
@@ -322,7 +332,7 @@ class ViewController: UIViewController {
                     }
                 }, completion: nil)
         }else{
-            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping:1.0, initialSpringVelocity: 15.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping:1.0, initialSpringVelocity: 15.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                
                 //rotate centre button
                 sender.transform = CGAffineTransformMakeRotation(CGFloat(-135 * M_PI/180))
@@ -332,7 +342,7 @@ class ViewController: UIViewController {
                     for backButton in self.arrayOfButtons{
                         if backButton.tag == i{
                             //animate button 1
-                            var yOriginFactor : CGFloat = CGFloat(CGFloat(i + 1) * 75.0)
+                            let yOriginFactor : CGFloat = CGFloat(CGFloat(i + 1) * 75.0)
                             
                             backButton.frame = CGRectMake(backButton.frame.origin.x, backButton.frame.origin.y + yOriginFactor, backButton.frame.size.width, backButton.frame.size.height)
                         }
@@ -345,7 +355,7 @@ class ViewController: UIViewController {
     
     
     func animateButtonsHorizontally(sender: UIButton){
-        var animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         animation.duration = 0.6
         animation.values = [ -40, 40, -30, 30, -20, 20, -10, 10, -5, 5, 0]
@@ -375,7 +385,7 @@ class ViewController: UIViewController {
         sender.selected = !sender.selected
         
         if sender.selected {
-            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                 
                 //rotate centre button
                 sender.transform = CGAffineTransformMakeRotation(CGFloat(135 * M_PI/180))
@@ -385,11 +395,11 @@ class ViewController: UIViewController {
                         for backButton in self.arrayOfButtons{
                             if backButton.tag == i{
                                 //animate button
-                                var radius : Double = 150.0
-                                var angle : Double = Double(i) * 90.0 / Double(self.numberOfButtons - 1)
+                                let radius : Double = 150.0
+                                let angle : Double = Double(i) * 90.0 / Double(self.numberOfButtons - 1)
                                 
-                                var originX : CGFloat = CGFloat (radius * cos(M_PI / 180.0 * angle))
-                                var originY : CGFloat = CGFloat( radius * sin(M_PI / 180.0 * angle))
+                                let originX : CGFloat = CGFloat (radius * cos(M_PI / 180.0 * angle))
+                                let originY : CGFloat = CGFloat( radius * sin(M_PI / 180.0 * angle))
 
                                 backButton.center = CGPoint(x: originX + self.button.center.x, y: (self.button.center.y - originY) )
                                 
@@ -398,13 +408,13 @@ class ViewController: UIViewController {
                     }
                 }, completion: nil)
         }else{
-            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping:1.0, initialSpringVelocity: 15.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping:1.0, initialSpringVelocity: 15.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                 
                 //rotate centre button
                 sender.transform = CGAffineTransformMakeRotation(CGFloat(-135 * M_PI/180))
                 sender.backgroundColor = UIColor.greenColor()
 
-                    for i in 0..<self.numberOfButtons{
+                    for _ in 0..<self.numberOfButtons{
                         for buttonAnimated in self.arrayOfButtons{
                             buttonAnimated.center = CGPoint(x: self.button.center.x, y: self.button.center.y)
                         }
@@ -432,7 +442,7 @@ class ViewController: UIViewController {
 
         for i in 0..<self.numberOfButtons{
             
-            var buttonForAnimation = UIButton()
+            let buttonForAnimation = UIButton()
             buttonForAnimation.frame = CGRectMake(self.view.frame.size.width + 70.0, startOrigin + (70.0 * CGFloat(i)) , buttonDiameter, buttonDiameter)
             buttonForAnimation.tag = i
             buttonForAnimation.setTitle(String(i), forState:.Normal)
@@ -458,7 +468,7 @@ class ViewController: UIViewController {
             for i in 0..<self.numberOfButtons{
                 for buttonAnimated in self.arrayOfButtons{
                     if buttonAnimated.tag == i{
-                        UIView.animateWithDuration(0.5, delay: Double(i)*0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 20.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                        UIView.animateWithDuration(0.5, delay: Double(i)*0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 20.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                             buttonAnimated.frame = CGRectMake(self.view.frame.size.width - 70.0, buttonAnimated.frame.origin.y , buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
                             }, completion: nil)
                     }
@@ -468,7 +478,7 @@ class ViewController: UIViewController {
             for i in 0..<self.numberOfButtons{
                 for buttonAnimated in self.arrayOfButtons{
                     if buttonAnimated.tag == i{
-                        UIView.animateWithDuration(0.5, delay: Double(i)*0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 20.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                        UIView.animateWithDuration(0.5, delay: Double(i)*0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 20.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                             buttonAnimated.frame = CGRectMake(self.view.frame.size.width + 70.0, buttonAnimated.frame.origin.y , buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
                             }, completion: nil)
                     }
@@ -502,7 +512,7 @@ class ViewController: UIViewController {
         if sender.selected {
             
             
-            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                 
                 //rotate centre button
                 sender.transform = CGAffineTransformMakeRotation(CGFloat(135 * M_PI/180))
@@ -516,13 +526,13 @@ class ViewController: UIViewController {
                 for backButton in self.arrayOfButtons{
                     if backButton.tag == i{
                         
-                        var radius : Double = 100.0
-                        var angle : Double = Double(i) * 180.0 / Double(self.numberOfButtons - 1)
+                        let radius : Double = 100.0
+                        let angle : Double = Double(i) * 180.0 / Double(self.numberOfButtons - 1)
                         
-                        var originX : CGFloat = CGFloat (radius * sin(M_PI / 180.0 * angle))
-                        var originY : CGFloat = CGFloat (radius * cos(M_PI / 180.0 * angle))
+                        let originX : CGFloat = CGFloat (radius * sin(M_PI / 180.0 * angle))
+                        let originY : CGFloat = CGFloat (radius * cos(M_PI / 180.0 * angle))
                         
-                        UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                        UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                             backButton.center = CGPoint(x: originX + self.button.center.x, y: (self.button.center.y - originY) )
 
                         }, completion: nil)
@@ -530,7 +540,7 @@ class ViewController: UIViewController {
                 }
             }
         }else{
-            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+            UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                 
                 //rotate centre button
                 sender.transform = CGAffineTransformMakeRotation(CGFloat(-135 * M_PI/180))
@@ -543,7 +553,7 @@ class ViewController: UIViewController {
                 for backButton in self.arrayOfButtons{
                     if backButton.tag == self.numberOfButtons - 1 - i{
                         
-                        UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.9, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                        UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.9, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                             backButton.center = CGPoint(x: self.button.center.x, y: self.button.center.y)
                             
                             }, completion: nil)
@@ -578,15 +588,15 @@ class ViewController: UIViewController {
         
         for j in 0..<numberOfRowsWithAllEntry{
             for i in 0..<perRowButton{
-                var buttonForAnimation = CustomButton()
-                var xOrigin : CGFloat = regularPadding + (regularPadding * CGFloat(i)) + (buttonDiameter * CGFloat(i))
-                var yOrigin : CGFloat = self.view.frame.size.height + (regularPadding * CGFloat(j)) + (buttonDiameter * CGFloat(j))
+                let buttonForAnimation = CustomButton()
+                let xOrigin : CGFloat = regularPadding + (regularPadding * CGFloat(i)) + (buttonDiameter * CGFloat(i))
+                let yOrigin : CGFloat = self.view.frame.size.height + (regularPadding * CGFloat(j)) + (buttonDiameter * CGFloat(j))
                 buttonForAnimation.frame = CGRectMake(xOrigin , yOrigin, buttonDiameter, buttonDiameter)
                 buttonForAnimation.tag = j * perRowButton + i
                 buttonForAnimation.setTitle(String(j * perRowButton + i), forState:.Normal)
                 buttonForAnimation.backgroundColor = UIColor.purpleColor()
                 buttonForAnimation.addTarget(self, action: "animateButtonByGrowAnimation:", forControlEvents: UIControlEvents.TouchDown)
-                buttonForAnimation.addTarget(self, action: "animateButtonByShrinkAnimation:", forControlEvents: UIControlEvents.TouchUpInside | UIControlEvents.TouchDragOutside)
+                buttonForAnimation.addTarget(self, action: "animateButtonByShrinkAnimation:", forControlEvents: [UIControlEvents.TouchUpInside, UIControlEvents.TouchDragOutside])
                 self.view.addSubview(buttonForAnimation)
                 buttonForAnimation.layer.cornerRadius = buttonDiameter/2
                 buttonForAnimation.clipsToBounds = true
@@ -598,15 +608,15 @@ class ViewController: UIViewController {
         let lastAddedButton : CustomButton = arrayOfCustomButtons.last!
         let regularPaddingInLastRow : CGFloat = (self.view.frame.size.width - (buttonDiameter * CGFloat(numberOfButtonInLastRow))) / CGFloat(numberOfButtonInLastRow+1)
         for k in 0..<numberOfButtonInLastRow{
-            var buttonForAnimation = CustomButton()
-            var xOrigin : CGFloat = regularPaddingInLastRow + (regularPaddingInLastRow * CGFloat(k)) + (buttonDiameter * CGFloat(k))
-            var yOrigin : CGFloat = lastAddedButton.frame.origin.y + buttonDiameter + regularPadding
+            let buttonForAnimation = CustomButton()
+            let xOrigin : CGFloat = regularPaddingInLastRow + (regularPaddingInLastRow * CGFloat(k)) + (buttonDiameter * CGFloat(k))
+            let yOrigin : CGFloat = lastAddedButton.frame.origin.y + buttonDiameter + regularPadding
             buttonForAnimation.frame = CGRectMake(xOrigin , yOrigin, buttonDiameter, buttonDiameter)
             buttonForAnimation.tag = numberOfRowsWithAllEntry * perRowButton + k
             buttonForAnimation.setTitle(String(numberOfRowsWithAllEntry * perRowButton + k), forState:.Normal)
             buttonForAnimation.backgroundColor = UIColor.purpleColor()
             buttonForAnimation.addTarget(self, action: "animateButtonByGrowAnimation:", forControlEvents: UIControlEvents.TouchDown)
-            buttonForAnimation.addTarget(self, action: "animateButtonByShrinkAnimation:", forControlEvents: UIControlEvents.TouchUpInside | UIControlEvents.TouchDragOutside)
+            buttonForAnimation.addTarget(self, action: "animateButtonByShrinkAnimation:", forControlEvents: [UIControlEvents.TouchUpInside, UIControlEvents.TouchDragOutside])
             self.view.addSubview(buttonForAnimation)
             buttonForAnimation.layer.cornerRadius = buttonDiameter/2
             buttonForAnimation.clipsToBounds = true
@@ -621,15 +631,15 @@ class ViewController: UIViewController {
     func flowButtonUpwards(yOriginFactor : CGFloat){
         for i in 0..<self.numberOfButtons{
            
-            var randomIndex = Int(arc4random_uniform(UInt32(arrayOfCustomButtons.count)))
-            var buttonToVerify = arrayOfCustomButtons[randomIndex]
+            let randomIndex = Int(arc4random_uniform(UInt32(arrayOfCustomButtons.count)))
+            let buttonToVerify = arrayOfCustomButtons[randomIndex]
             
             for buttonAnimated in self.arrayOfCustomButtons{
                 
                 
                 if buttonAnimated.tag == buttonToVerify.tag {
                 
-                    UIView.animateWithDuration(0.6, delay: Double(i)*0.1, usingSpringWithDamping: 0.65, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+                    UIView.animateWithDuration(0.6, delay: Double(i)*0.1, usingSpringWithDamping: 0.65, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                         buttonAnimated.frame = CGRectMake(buttonAnimated.frame.origin.x, buttonAnimated.frame.origin.y - self.view.frame.size.height + yOriginFactor , buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
                         }, completion: nil)
                     
@@ -644,7 +654,7 @@ class ViewController: UIViewController {
     
     func animateButtonByGrowAnimation(sender: UIButton){
 
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
             sender.transform = CGAffineTransformMakeScale(1.3, 1.3)
         }, completion: nil)
     }
@@ -652,33 +662,72 @@ class ViewController: UIViewController {
     
     func animateButtonByShrinkAnimation(sender: UIButton){
         
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
             sender.transform = CGAffineTransformMakeScale(1.0, 1.0)
         }) { (Bool) -> Void in
             
-                for i in 0..<self.numberOfButtons{
+            for i in 0..<self.numberOfButtons{
+                
+                let randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfVisitedButtons.count)))
+                let buttonToVerify = self.arrayOfVisitedButtons[randomIndex]
+                
+                for buttonAnimated in self.arrayOfVisitedButtons{
                     
-                    var randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfVisitedButtons.count)))
-                    var buttonToVerify = self.arrayOfVisitedButtons[randomIndex]
-                    
-                    for buttonAnimated in self.arrayOfVisitedButtons{
+                    if buttonAnimated.tag == buttonToVerify.tag {
                         
-                        if buttonAnimated.tag == buttonToVerify.tag {
-                            
-                            UIView.animateWithDuration(0.7, delay: Double(i)*0.15, usingSpringWithDamping: 0.9
-                                , initialSpringVelocity: 1.0, options: .CurveEaseInOut | .AllowUserInteraction, animations: { () -> Void in
-                                buttonAnimated.frame = CGRectMake(buttonAnimated.frame.origin.x, buttonAnimated.frame.origin.y + self.view.frame.size.height, buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
-                                    
-                                }, completion: nil)
-                            
-                            self.arrayOfVisitedButtons.removeAtIndex(randomIndex)
-                            
-                            break
-                        }
+                        UIView.animateWithDuration(0.7, delay: Double(i)*0.15, usingSpringWithDamping: 0.9
+                            , initialSpringVelocity: 1.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
+                            buttonAnimated.frame = CGRectMake(buttonAnimated.frame.origin.x, buttonAnimated.frame.origin.y + self.view.frame.size.height, buttonAnimated.frame.size.width, buttonAnimated.frame.size.height)
+                                
+                            }, completion: nil)
+                        
+                        self.arrayOfVisitedButtons.removeAtIndex(randomIndex)
+                        
+                        break
                     }
                 }
+            }
         }
     }
+    
+    
+    //MARK:- create slide to unlock effect
+    func createSlideToUnlockEffect(){
+        self.view.backgroundColor  = UIColor.brownColor()
+        
+        let buttonToAnimate = UIButton()
+        buttonToAnimate.frame = CGRectMake(20.0, 100.0, self.view.frame.size.width - 40.0, 50.0)
+        buttonToAnimate.setTitle("Slide To Unlock and Lock Screen", forState: UIControlState.Normal)
+        buttonToAnimate.titleLabel?.textAlignment = NSTextAlignment.Center
+        buttonToAnimate.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        buttonToAnimate.titleLabel?.font = UIFont(name: "System", size: 20.0)
+        self.view.addSubview(buttonToAnimate)
+        
+        animateButton(buttonToAnimate)
+    }
+    
+    
+    func animateButton(animatedButton: UIButton){
+        
+        let gradientMask = CAGradientLayer()
+        gradientMask.frame = animatedButton.frame
+        
+        let gradientSize : Float =  Float(shadowWidth / animatedButton.frame.size.width)
+        let startLocations : [NSNumber] = [0 , NSNumber(float: gradientSize / 2.0) , NSNumber(float: gradientSize) ]
+        let endLocations  : [NSNumber] = [NSNumber(float:1.0 - gradientSize) , NSNumber(float: 1.0 - ( gradientSize)/2.0), 1]
+        
+        gradientMask.colors = [shadowBackgroundColor.CGColor , shadowForegroundColor.CGColor , shadowBackgroundColor.CGColor ]
+        gradientMask.locations = startLocations
+        gradientMask.startPoint = CGPoint(x:CGFloat(0 - (gradientSize * 2)), y: 0.5)
+        gradientMask.endPoint = CGPoint(x:CGFloat( 1 + gradientSize), y: 0.5)
+        animatedButton.layer.mask = gradientMask
 
-
+        let currentAnimation = CABasicAnimation(keyPath: "locations")
+        currentAnimation.fromValue = startLocations
+        currentAnimation.toValue = endLocations
+        currentAnimation.repeatCount = repeatCount
+        currentAnimation.duration  = duration
+        currentAnimation.delegate = self
+        gradientMask.addAnimation(currentAnimation, forKey:"MyAnimation")
+    }
 }
