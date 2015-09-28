@@ -25,7 +25,7 @@ class ViewController: UIViewController{
     var shadowBackgroundColor = UIColor(white: 1.0, alpha: 0.3)
     var shadowForegroundColor = UIColor.whiteColor()
     
-    var shadowWidth : CGFloat = 25.0
+    var shadowWidth : CGFloat = 50.0
     var repeatCount = HUGE;
     var duration : NSTimeInterval = 3.0;
     
@@ -695,33 +695,39 @@ class ViewController: UIViewController{
     func createSlideToUnlockEffect(){
         self.view.backgroundColor  = UIColor.brownColor()
         
+        let viewToAnimate = UIView(frame: CGRectMake(20.0, 100.0, self.view.frame.size.width - 40.0, 50.0))
+        self.view.addSubview(viewToAnimate)
+        
+        
         let buttonToAnimate = UIButton()
-        buttonToAnimate.frame = CGRectMake(20.0, 100.0, self.view.frame.size.width - 40.0, 50.0)
-        buttonToAnimate.setTitle("Slide To Unlock and Lock Screen", forState: UIControlState.Normal)
+        buttonToAnimate.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width - 40.0, 50.0)
+        buttonToAnimate.setTitle("Slide To Unlock / Lock Screen", forState: UIControlState.Normal)
         buttonToAnimate.titleLabel?.textAlignment = NSTextAlignment.Center
         buttonToAnimate.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         buttonToAnimate.titleLabel?.font = UIFont(name: "System", size: 20.0)
-        self.view.addSubview(buttonToAnimate)
+        viewToAnimate.addSubview(buttonToAnimate)
         
-        animateButton(buttonToAnimate)
+        animateButton(viewToAnimate)
     }
     
     
-    func animateButton(animatedButton: UIButton){
+    func animateButton(animatedView: UIView){
         
-        let gradientMask = CAGradientLayer()
-        gradientMask.frame = animatedButton.frame
+        let gradientMask : CAGradientLayer = CAGradientLayer()
+        gradientMask.frame = CGRectMake(0.0, 0.0, animatedView.frame.size.width, animatedView.frame.size.height)
         
-        let gradientSize : Float =  Float(shadowWidth / animatedButton.frame.size.width)
-        let startLocations : [NSNumber] = [0 , NSNumber(float: gradientSize / 2.0) , NSNumber(float: gradientSize) ]
-        let endLocations  : [NSNumber] = [NSNumber(float:1.0 - gradientSize) , NSNumber(float: 1.0 - ( gradientSize)/2.0), 1]
+        let gradientSize : Float =  Float(shadowWidth / animatedView.frame.size.width)
+        
+        let startLocations : [NSNumber] = [NSNumber(float: 0.0) , NSNumber(float: gradientSize / 2.0) , NSNumber(float: gradientSize) ]
+        
+        let endLocations  : [NSNumber] = [NSNumber(float:1.0 - gradientSize) , NSNumber(float: 1.0 - ( gradientSize)/2.0), NSNumber(float: 1.0)]
         
         gradientMask.colors = [shadowBackgroundColor.CGColor , shadowForegroundColor.CGColor , shadowBackgroundColor.CGColor ]
         gradientMask.locations = startLocations
         gradientMask.startPoint = CGPoint(x:CGFloat(0 - (gradientSize * 2)), y: 0.5)
         gradientMask.endPoint = CGPoint(x:CGFloat( 1 + gradientSize), y: 0.5)
-        animatedButton.layer.mask = gradientMask
-
+        animatedView.layer.mask = gradientMask
+        
         let currentAnimation = CABasicAnimation(keyPath: "locations")
         currentAnimation.fromValue = startLocations
         currentAnimation.toValue = endLocations
@@ -730,4 +736,5 @@ class ViewController: UIViewController{
         currentAnimation.delegate = self
         gradientMask.addAnimation(currentAnimation, forKey:"MyAnimation")
     }
+    
 }
