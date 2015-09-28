@@ -16,16 +16,16 @@ class ViewController: UIViewController{
     @IBOutlet weak var swiftAnimationLabel: UILabel!
     var animatingView : UIView!
     let buttonDiameter : CGFloat = 50.0
-    let numberOfButtons : Int = 5
+    let numberOfButtons : Int = 4
     var button : UIButton!
     let perRowButton : Int = 3
     var arrayOfButtons : [UIButton] = []
     var arrayOfCustomButtons : [CustomButton] = []
     var arrayOfVisitedButtons : [CustomButton] = []
-    var shadowBackgroundColor = UIColor(white: 1.0, alpha: 0.3)
-    var shadowForegroundColor = UIColor.whiteColor()
+    var shadowBackgroundColor = UIColor(white: 1.0, alpha: 0.2)
+    var shadowForegroundColor = UIColor.redColor()
     
-    var shadowWidth : CGFloat = 50.0
+    var shadowWidth : CGFloat = 55.0
     var repeatCount = HUGE;
     var duration : NSTimeInterval = 3.0;
     
@@ -527,10 +527,10 @@ class ViewController: UIViewController{
                     if backButton.tag == i{
                         
                         let radius : Double = 100.0
-                        let angle : Double = Double(i) * 180.0 / Double(self.numberOfButtons - 1)
+                        let angle : Double = Double(i) * 90.0 / Double(self.numberOfButtons - 1)
                         
-                        let originX : CGFloat = CGFloat (radius * sin(M_PI / 180.0 * angle))
-                        let originY : CGFloat = CGFloat (radius * cos(M_PI / 180.0 * angle))
+                        let originX : CGFloat = CGFloat (radius * sin(M_PI / 180.0 * (angle + 45.0)))
+                        let originY : CGFloat = CGFloat (radius * -cos(M_PI / 180.0 * (angle + 45.0)))
                         
                         UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                             backButton.center = CGPoint(x: originX + self.button.center.x, y: (self.button.center.y - originY) )
@@ -562,6 +562,7 @@ class ViewController: UIViewController{
             }
         }
     }
+    
     
     func animateButtonsClockwiseOutwards(sender: UIButton){
         sender.showsTouchWhenHighlighted = true
@@ -695,13 +696,12 @@ class ViewController: UIViewController{
     func createSlideToUnlockEffect(){
         self.view.backgroundColor  = UIColor.brownColor()
         
-        let viewToAnimate = UIView(frame: CGRectMake(20.0, 100.0, self.view.frame.size.width - 40.0, 50.0))
+        let viewToAnimate = UIView(frame: CGRectMake(20.0, self.view.frame.size.height - 100.0, self.view.frame.size.width - 40.0, 50.0))
         self.view.addSubview(viewToAnimate)
-        
         
         let buttonToAnimate = UIButton()
         buttonToAnimate.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width - 40.0, 50.0)
-        buttonToAnimate.setTitle("Slide To Unlock / Lock Screen", forState: UIControlState.Normal)
+        buttonToAnimate.setTitle("Slide To Unlock / Lock Screen →", forState: UIControlState.Normal)
         buttonToAnimate.titleLabel?.textAlignment = NSTextAlignment.Center
         buttonToAnimate.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         buttonToAnimate.titleLabel?.font = UIFont(name: "System", size: 20.0)
@@ -736,5 +736,7 @@ class ViewController: UIViewController{
         currentAnimation.delegate = self
         gradientMask.addAnimation(currentAnimation, forKey:"MyAnimation")
     }
+
+    
     
 }
