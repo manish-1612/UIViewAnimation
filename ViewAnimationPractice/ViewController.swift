@@ -14,20 +14,41 @@ class ViewController: UIViewController{
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var iOSLabel: UILabel!
     @IBOutlet weak var swiftAnimationLabel: UILabel!
+    
+    @IBOutlet weak var secretLabel1: UILabel!
+    
+    @IBOutlet weak var secretLabel2: UILabel!
+    
+    
     var animatingView : UIView!
     let buttonDiameter : CGFloat = 50.0
     let numberOfButtons : Int = 4
     var button : UIButton!
     let perRowButton : Int = 3
     var arrayOfButtons : [UIButton] = []
-    var arrayOfCustomButtons : [CustomButton] = []
-    var arrayOfVisitedButtons : [CustomButton] = []
+    var arrayOfCustomButtons : [UIButton] = []
+    var arrayOfVisitedButtons : [UIButton] = []
+    
+    
     var shadowBackgroundColor = UIColor(white: 1.0, alpha: 0.2)
     var shadowForegroundColor = UIColor.redColor()
-    
-    var shadowWidth : CGFloat = 55.0
+    var shadowWidth : CGFloat = 60.0
     var repeatCount = HUGE;
-    var duration : NSTimeInterval = 3.0;
+    var duration : NSTimeInterval = 2.5
+    
+    
+    var attributedString : NSAttributedString!
+    var numWhiteCharacters : NSInteger!
+    var topLabel : UILabel!
+    var bottomLabel : UILabel!
+    
+//    @property (strong, nonatomic) NSAttributedString *attributedString;
+//    @property (assign, nonatomic) NSUInteger numWhiteCharacters;
+//    
+//    @property (strong, nonatomic) UILabel *topLabel;
+//    @property (strong, nonatomic) UILabel *bottomLabel;
+
+    
     
     // MARK :- Lifecycle methods
     override func viewDidLoad() {
@@ -37,6 +58,8 @@ class ViewController: UIViewController{
         iOSLabel.hidden = true
         swiftAnimationLabel.hidden = true
         optionsButton.hidden = true
+        secretLabel1.hidden = true
+        secretLabel2.hidden = true
         
         //animateUILabel()
         //draw8WithAnimation()
@@ -573,8 +596,8 @@ class ViewController: UIViewController{
     //MARK:- animate buttons fall animation
     func createButtonForDownwardFallAnimation(){
         
-        arrayOfCustomButtons = [CustomButton]()
-        arrayOfVisitedButtons = [CustomButton]()
+        arrayOfCustomButtons = [UIButton]()
+        arrayOfVisitedButtons = [UIButton]()
         
         let numberOfRowsWithAllEntry : Int = numberOfButtons / perRowButton
         let numberOfButtonInLastRow : Int = numberOfButtons % perRowButton
@@ -589,7 +612,7 @@ class ViewController: UIViewController{
         
         for j in 0..<numberOfRowsWithAllEntry{
             for i in 0..<perRowButton{
-                let buttonForAnimation = CustomButton()
+                let buttonForAnimation = UIButton()
                 let xOrigin : CGFloat = regularPadding + (regularPadding * CGFloat(i)) + (buttonDiameter * CGFloat(i))
                 let yOrigin : CGFloat = self.view.frame.size.height + (regularPadding * CGFloat(j)) + (buttonDiameter * CGFloat(j))
                 buttonForAnimation.frame = CGRectMake(xOrigin , yOrigin, buttonDiameter, buttonDiameter)
@@ -606,10 +629,10 @@ class ViewController: UIViewController{
         }
         
         
-        let lastAddedButton : CustomButton = arrayOfCustomButtons.last!
+        let lastAddedButton : UIButton = arrayOfCustomButtons.last!
         let regularPaddingInLastRow : CGFloat = (self.view.frame.size.width - (buttonDiameter * CGFloat(numberOfButtonInLastRow))) / CGFloat(numberOfButtonInLastRow+1)
         for k in 0..<numberOfButtonInLastRow{
-            let buttonForAnimation = CustomButton()
+            let buttonForAnimation = UIButton()
             let xOrigin : CGFloat = regularPaddingInLastRow + (regularPaddingInLastRow * CGFloat(k)) + (buttonDiameter * CGFloat(k))
             let yOrigin : CGFloat = lastAddedButton.frame.origin.y + buttonDiameter + regularPadding
             buttonForAnimation.frame = CGRectMake(xOrigin , yOrigin, buttonDiameter, buttonDiameter)
@@ -738,5 +761,47 @@ class ViewController: UIViewController{
     }
 
     
+    //MARK:- create secret text animation
+    func createSecretTextAnimation(){
+        
+        /*
+        self.textLabel1.alpha = 0;
+        self.textLabel2.alpha = 0;
+        
+        // this is based on the view hierarchy in the storyboard
+        self.topLabel = self.textLabel2;
+        self.bottomLabel = self.textLabel1;
+        
+        NSString *mySecretMessage = @&amp;quot;This is a my replication of Secret's text animation. It looks like one fancy label, but it's actually two UITextLabels on top of each other! What do you think?&amp;quot;;
+        
+        self.numWhiteCharacters = 0;
+        
+        NSAttributedString *initialAttributedText = [self randomlyFadedAttributedStringFromString:mySecretMessage];
+        self.topLabel.attributedText = initialAttributedText;
+        
+        __weak NTRViewController *weakSelf = self;
+        [UIView animateWithDuration:0.1 animations:^{
+        weakSelf.topLabel.alpha = 1;
+        } completion:^(BOOL finished) {
+        // continue the animation from here
+        }];
+
+*/
+        
+        secretLabel1.alpha = 0.0
+        secretLabel2.alpha = 0.0
+        
+        // this is based on the view hierarchy in the storyboard
+        topLabel = secretLabel2
+        bottomLabel = secretLabel1
+        
+        let myString : String = "This is a my replication of Secret's text animation. It looks like one fancy label, but it's actually two UITextLabels on top of each other! What do you think?"
+
+        numWhiteCharacters = 0;
+
+        
+        
+    }
+
     
 }

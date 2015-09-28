@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7978C0521BB2B20E005349A2 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7978C0511BB2B20E005349A2 /* CustomButton.swift */; };
 		79E8E1761BA8470A00743A63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E8E1751BA8470A00743A63 /* AppDelegate.swift */; };
 		79E8E1781BA8470A00743A63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E8E1771BA8470A00743A63 /* ViewController.swift */; };
 		79E8E17B1BA8470A00743A63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79E8E1791BA8470A00743A63 /* Main.storyboard */; };
@@ -29,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7978C0511BB2B20E005349A2 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		79E8E1701BA8470A00743A63 /* ViewAnimationPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewAnimationPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79E8E1741BA8470A00743A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79E8E1751BA8470A00743A63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 			children = (
 				79E8E1751BA8470A00743A63 /* AppDelegate.swift */,
 				79E8E1771BA8470A00743A63 /* ViewController.swift */,
-				7978C0511BB2B20E005349A2 /* CustomButton.swift */,
 				79E8E1791BA8470A00743A63 /* Main.storyboard */,
 				79E8E17C1BA8470A00743A63 /* Images.xcassets */,
 				79E8E17E1BA8470A00743A63 /* LaunchScreen.xib */,
@@ -227,7 +224,6 @@
 			files = (
 				79E8E1781BA8470A00743A63 /* ViewController.swift in Sources */,
 				79E8E1761BA8470A00743A63 /* AppDelegate.swift in Sources */,
-				7978C0521BB2B20E005349A2 /* CustomButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
