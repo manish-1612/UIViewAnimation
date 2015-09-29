@@ -860,11 +860,13 @@ class ViewController: UIViewController{
             
             
             attributedString.enumerateAttribute(NSForegroundColorAttributeName, inRange: NSMakeRange(i, 1), options: NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired, usingBlock: { (value, range, stop) -> Void in
+                
+                print("value : \(value)")
                 let initialColor : UIColor = value as! UIColor
                 let newInitialColor = UIColor(CGColor: initialColor.CGColor)
 
                 if let newColor : UIColor = self.whiteColorFromInitialColor(newInitialColor) {
-                    mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: newColor, range: range)
+                    mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: newColor, range: NSMakeRange(i, 1))
                     self.updateNumWhiteCharactersForColor(newColor)
                 }
                 
@@ -886,7 +888,7 @@ class ViewController: UIViewController{
     
     func whiteColorFromInitialColor(initialColor : UIColor) -> UIColor{
         
-        var newColor : UIColor = UIColor.clearColor()
+        var newColor : UIColor!
         
         if initialColor == UIColor.clearColor(){
             newColor = whiteColorWithClearColorProbability(4)
@@ -898,6 +900,10 @@ class ViewController: UIViewController{
             }
         }
         
+        if newColor == nil{
+            newColor = UIColor()
+        }
+        
         return newColor
     }
     
@@ -905,7 +911,7 @@ class ViewController: UIViewController{
     
     func whiteColorWithClearColorProbability(probability : NSInteger)->UIColor{
         
-        var color: UIColor!
+        var color : UIColor  = UIColor()
         let colorIndex = Int(arc4random()) % probability
         
         if colorIndex != 0{
