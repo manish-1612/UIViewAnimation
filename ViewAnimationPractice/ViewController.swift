@@ -38,7 +38,7 @@ class ViewController: UIViewController{
     
     
     var attributedString : NSAttributedString!
-    var numWhiteCharacters : NSInteger!
+    var numWhiteCharacters : Int = 0
     var topLabel : UILabel!
     var bottomLabel : UILabel!
     
@@ -289,7 +289,12 @@ class ViewController: UIViewController{
         
         
         //create slide To unlock efect
-        createSlideToUnlockEffect()
+        //createSlideToUnlockEffect()
+        
+        
+        //create secret text animation
+        createSecretTextAnimation()
+
     }
     
     
@@ -764,29 +769,10 @@ class ViewController: UIViewController{
     //MARK:- create secret text animation
     func createSecretTextAnimation(){
         
-        /*
-        self.textLabel1.alpha = 0;
-        self.textLabel2.alpha = 0;
-        
-        // this is based on the view hierarchy in the storyboard
-        self.topLabel = self.textLabel2;
-        self.bottomLabel = self.textLabel1;
-        
-        NSString *mySecretMessage = @&amp;quot;This is a my replication of Secret's text animation. It looks like one fancy label, but it's actually two UITextLabels on top of each other! What do you think?&amp;quot;;
-        
-        self.numWhiteCharacters = 0;
-        
-        NSAttributedString *initialAttributedText = [self randomlyFadedAttributedStringFromString:mySecretMessage];
-        self.topLabel.attributedText = initialAttributedText;
-        
-        __weak NTRViewController *weakSelf = self;
-        [UIView animateWithDuration:0.1 animations:^{
-        weakSelf.topLabel.alpha = 1;
-        } completion:^(BOOL finished) {
-        // continue the animation from here
-        }];
+        //unhide the labels
+        secretLabel1.hidden = false
+        secretLabel2.hidden = false
 
-*/
         
         secretLabel1.alpha = 0.0
         secretLabel2.alpha = 0.0
@@ -798,10 +784,152 @@ class ViewController: UIViewController{
         let myString : String = "This is a my replication of Secret's text animation. It looks like one fancy label, but it's actually two UITextLabels on top of each other! What do you think?"
 
         numWhiteCharacters = 0;
+        
+        let initialAttributedText = randomlyFadedAttributedStringFromString(myString)
+        topLabel.attributedText = initialAttributedText
+        
+        UIView.animateWithDuration(0.1, animations: { () -> Void in
+            self.topLabel.alpha = 1.0
+            }) { (Bool) -> Void in
+                self.attributedString = self.randomlyFadedAttributedStringFromAttributedString(initialAttributedText)
+                self.bottomLabel.attributedText = self.attributedString
+                self.performAnimation()
+        }
 
         
         
     }
 
+    
+    func performAnimation(){
+        
+        weak var weakSelf = self
+       
+        UIView.animateWithDuration(0.1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+            weakSelf!.bottomLabel.alpha = 1.0
+            }) { (Bool) -> Void in
+                weakSelf!.resetLabels()
+                // keep performing the animation until all letters are white
+                if weakSelf!.numWhiteCharacters == weakSelf!.attributedString.length{
+                    weakSelf!.bottomLabel.removeFromSuperview()
+                }else{
+                    weakSelf!.performAnimation()
+                }
+        }
+    }
+    
+    
+    func resetLabels(){
+        topLabel.removeFromSuperview()
+        topLabel.alpha = 0.0
+        
+        // recalculate attributed string with the new white color values
+        attributedString = randomlyFadedAttributedStringFromAttributedString(attributedString)
+        topLabel.attributedText = attributedString
+        self.view.insertSubview(topLabel, belowSubview: bottomLabel)
+        
+        
+        //  the top label is now on the bottom, so switch
+        let oldBottomLabel = bottomLabel
+        let oldTopLabel = topLabel
+    
+        bottomLabel = oldTopLabel
+        topLabel = oldBottomLabel
+    }
+    
+    
+    func randomlyFadedAttributedStringFromString(string : String) -> NSAttributedString{
+        let attributedString = NSMutableAttributedString(string: string)
+        
+        for i in 0..<attributedString.length {
+            let color : UIColor = whiteColorWithClearColorProbability(10)
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: color, range: NSMakeRange(i, 1))
+            updateNumWhiteCharactersForColor(color)
+        }
+        
+        return attributedString.copy() as! NSAttributedString
+        
+    }
+    
+    
+    func randomlyFadedAttributedStringFromAttributedString(attributedString : NSAttributedString)->NSAttributedString{
+        
+        let mutableAttributedString : NSMutableAttributedString = (attributedString.mutableCopy() as? NSMutableAttributedString)!
+        
+        for i in 0..<attributedString.length {
+            
+            
+            attributedString.enumerateAttribute(NSForegroundColorAttributeName, inRange: NSMakeRange(i, 1), options: NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired, usingBlock: { (value, range, stop) -> Void in
+                let initialColor : UIColor = value as! UIColor
+                let newInitialColor = UIColor(CGColor: initialColor.CGColor)
+
+                if let newColor : UIColor = self.whiteColorFromInitialColor(newInitialColor) {
+                    mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: newColor, range: range)
+                    self.updateNumWhiteCharactersForColor(newColor)
+                }
+                
+            })
+        }
+        
+        return mutableAttributedString.copy() as! NSAttributedString
+
+    }
+    
+    
+    func updateNumWhiteCharactersForColor(color : UIColor){
+        let alpha : CGFloat = CGColorGetAlpha(color.CGColor)
+        if alpha == 1.0{
+            numWhiteCharacters++
+        }
+    }
+    
+    
+    func whiteColorFromInitialColor(initialColor : UIColor) -> UIColor{
+        
+        var newColor : UIColor = UIColor.clearColor()
+        
+        if initialColor == UIColor.clearColor(){
+            newColor = whiteColorWithClearColorProbability(4)
+        }else{
+            let alpha :CGFloat = CGColorGetAlpha(initialColor.CGColor)
+            
+            if alpha != 1.0 {
+                newColor = whiteColorWithMinAlpha(alpha)
+            }
+        }
+        
+        return newColor
+    }
+    
+    
+    
+    func whiteColorWithClearColorProbability(probability : NSInteger)->UIColor{
+        
+        var color: UIColor!
+        let colorIndex = Int(arc4random()) % probability
+        
+        if colorIndex != 0{
+            color = UIColor.clearColor()
+        }else{
+            color = whiteColorWithMinAlpha(0.0)
+        }
+        
+        return color
+    }
+    
+    
+    func whiteColorWithMinAlpha(minAlpha : CGFloat) -> UIColor{
+        
+        let randomValue = Int(arc4random_uniform(UInt32(100 - minAlpha * 100 + 1)))
+        let randomNumber = Int(minAlpha * 100) + randomValue
+        let randomAlpha : CGFloat = CGFloat(randomNumber) / 100.0
+        let color = UIColor(white: 1.0, alpha: randomAlpha)
+        return color
+    }
+
+    
+    override func prefersStatusBarHidden()->Bool{
+        return true
+    }
     
 }
