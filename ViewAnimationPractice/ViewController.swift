@@ -779,7 +779,6 @@ class ViewController: UIViewController {
         //unhide the labels
         secretLabel1.hidden = false
         
-        
         characterAnimationDelays = [Double]()
         characterAnimationDurations = [Double]()
 
