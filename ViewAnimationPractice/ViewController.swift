@@ -8,7 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController{
+typealias VoidClosure = ()->Void
+
+
+class ViewController: UIViewController {
 
     
     @IBOutlet weak var optionsButton: UIButton!
@@ -17,7 +20,6 @@ class ViewController: UIViewController{
     
     @IBOutlet weak var secretLabel1: UILabel!
     
-    @IBOutlet weak var secretLabel2: UILabel!
     
     
     var animatingView : UIView!
@@ -37,17 +39,23 @@ class ViewController: UIViewController{
     var duration : NSTimeInterval = 2.5
     
     
-    var attributedString : NSAttributedString!
-    var numWhiteCharacters : Int = 0
-    var topLabel : UILabel!
-    var bottomLabel : UILabel!
-    
-//    @property (strong, nonatomic) NSAttributedString *attributedString;
-//    @property (assign, nonatomic) NSUInteger numWhiteCharacters;
-//    
-//    @property (strong, nonatomic) UILabel *topLabel;
-//    @property (strong, nonatomic) UILabel *bottomLabel;
+    var shineDuration : CFTimeInterval = 2.5
+    var fadeoutDuration : CFTimeInterval = 2.5
+    var autoStart : Bool = false
+    var fadedOut : Bool = false
+    var shining : Bool = false
+    var visible : Bool = false
+    var attributedString : NSMutableAttributedString?
+    var characterAnimationDurations : [Double] = []
+    var characterAnimationDelays : [Double] = []
+    var displaylink : CADisplayLink?
+    var beginTime : CFTimeInterval = 0.0
+    var endTime : CFTimeInterval = 0.0
 
+    
+    
+    
+    var completion : VoidClosure?
     
     
     // MARK :- Lifecycle methods
@@ -59,7 +67,6 @@ class ViewController: UIViewController{
         swiftAnimationLabel.hidden = true
         optionsButton.hidden = true
         secretLabel1.hidden = true
-        secretLabel2.hidden = true
         
         //animateUILabel()
         //draw8WithAnimation()
@@ -771,171 +778,144 @@ class ViewController: UIViewController{
         
         //unhide the labels
         secretLabel1.hidden = false
-        secretLabel2.hidden = false
+        
+        
+        characterAnimationDelays = [Double]()
+        characterAnimationDurations = [Double]()
 
+        secretLabel1.textColor  = UIColor.whiteColor()
         
-        secretLabel1.alpha = 0.0
-        secretLabel2.alpha = 0.0
+        let assignedString = NSAttributedString(string: "This is a my replication of Secret's text animation. It looks like one fancy label, but it's actually two UITextLabels on top of each other! What do you think?")
+        setAttributedText(assignedString)
+        //attributedString = assignedString.mutableCopy() as? NSMutableAttributedString
         
-        // this is based on the view hierarchy in the storyboard
-        topLabel = secretLabel2
-        bottomLabel = secretLabel1
+        displaylink = CADisplayLink(target: self, selector: "updateAttributedString")
+        displaylink!.paused = true
+        displaylink?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
         
-        let myString : String = "This is a my replication of Secret's text animation. It looks like one fancy label, but it's actually two UITextLabels on top of each other! What do you think?"
+        
+        shine()
 
-        numWhiteCharacters = 0;
-        
-        let initialAttributedText = randomlyFadedAttributedStringFromString(myString)
-        topLabel.attributedText = initialAttributedText
-        
-        UIView.animateWithDuration(0.1, animations: { () -> Void in
-            self.topLabel.alpha = 1.0
-            }) { (Bool) -> Void in
-                self.attributedString = self.randomlyFadedAttributedStringFromAttributedString(initialAttributedText)
-                self.bottomLabel.attributedText = self.attributedString
-                self.performAnimation()
-        }
-
-        
-        
-    }
-
-    
-    func performAnimation(){
-        
-        weak var weakSelf = self
-       
-        UIView.animateWithDuration(0.1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
-            weakSelf!.bottomLabel.alpha = 1.0
-            }) { (Bool) -> Void in
-                weakSelf!.resetLabels()
-                // keep performing the animation until all letters are white
-                if weakSelf!.numWhiteCharacters == weakSelf!.attributedString.length{
-                    weakSelf!.bottomLabel.removeFromSuperview()
-                }else{
-                    weakSelf!.performAnimation()
-                }
-        }
     }
     
     
-    func resetLabels(){
-        topLabel.removeFromSuperview()
-        topLabel.alpha = 0.0
-        
-        // recalculate attributed string with the new white color values
-        attributedString = randomlyFadedAttributedStringFromAttributedString(attributedString)
-        topLabel.attributedText = attributedString
-        self.view.insertSubview(topLabel, belowSubview: bottomLabel)
-        
-        
-        //  the top label is now on the bottom, so switch
-        let oldBottomLabel = bottomLabel
-        let oldTopLabel = topLabel
-    
-        bottomLabel = oldTopLabel
-        topLabel = oldBottomLabel
-    }
-    
-    
-    func randomlyFadedAttributedStringFromString(string : String) -> NSAttributedString{
-        let attributedString = NSMutableAttributedString(string: string)
-        
-        for i in 0..<attributedString.length {
-            let color : UIColor = whiteColorWithClearColorProbability(10)
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: color, range: NSMakeRange(i, 1))
-            updateNumWhiteCharactersForColor(color)
-        }
-        
-        return attributedString.copy() as! NSAttributedString
-        
-    }
-    
-    
-    func randomlyFadedAttributedStringFromAttributedString(attributedString : NSAttributedString)->NSAttributedString{
-        
-        let mutableAttributedString : NSMutableAttributedString = (attributedString.mutableCopy() as? NSMutableAttributedString)!
-        
-        for i in 0..<attributedString.length {
+    func setAttributedText(attributedText : NSAttributedString){
+        attributedString = initialAttributedStringFromAttributedString(attributedText)
+        secretLabel1.attributedText = attributedString
+
+        for i in 0..<attributedText.length{
             
+            let randomValueForDelay = Int(arc4random_uniform(UInt32(shineDuration / 2 * 100)))
+            characterAnimationDelays.append(Double(randomValueForDelay) / 100.0)//characterAnimationDelays[i] = Double(randomValueForDelay) / 100.0
+            let remain : CGFloat = CGFloat(shineDuration - characterAnimationDelays[i])
+            let randomValueForDuration = Int(arc4random_uniform(UInt32(remain * 100)))
+            characterAnimationDurations.append(Double(randomValueForDuration) / 100.0)//characterAnimationDurations[i] = Double(randomValueForDuration) / 100.0
+        }
+    }
+
+    func initialAttributedStringFromAttributedString(attributedString : NSAttributedString) ->NSMutableAttributedString{
+        let mutableAttributedString = attributedString.mutableCopy()
+        
+        let color = secretLabel1.textColor.colorWithAlphaComponent(0.0)
+        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: color, range: NSMakeRange(0, mutableAttributedString.length))
+        return mutableAttributedString as! NSMutableAttributedString
+    }
+    
+    func shine(){
+        shineWithCompletion { () -> Void in
+            //do nothing
+        }
+    }
+    
+    
+    
+    func shineWithCompletion(completionNew: VoidClosure) {
+        if !isShining() && !isFadedOut() {
+            completion = completionNew
+            fadedOut = false
+            self.startAnimationWithDuration(shineDuration)
+        }
+    }
+
+    func startAnimationWithDuration(duration: CFTimeInterval){
+        beginTime = CACurrentMediaTime()
+        endTime = beginTime + shineDuration
+        displaylink!.paused = false
+
+    }
+    
+    func updateAttributedString(){
+        
+        let now : CFTimeInterval = CACurrentMediaTime()
+        
+        for i in 0..<attributedString!.length{
             
-            attributedString.enumerateAttribute(NSForegroundColorAttributeName, inRange: NSMakeRange(i, 1), options: NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired, usingBlock: { (value, range, stop) -> Void in
+            let newString : NSString = NSString(string:(attributedString?.string)!)
+            
+            if NSCharacterSet.whitespaceAndNewlineCharacterSet().characterIsMember(newString.characterAtIndex(i)){
+                continue
+            }
+            
+            attributedString?.enumerateAttribute(NSForegroundColorAttributeName, inRange: NSMakeRange(i, 1), options: NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired, usingBlock: { (value, range, stop) -> Void in
                 
-                print("value : \(value)")
-                let initialColor : UIColor = value as! UIColor
-                let newInitialColor = UIColor(CGColor: initialColor.CGColor)
-
-                if let newColor : UIColor = self.whiteColorFromInitialColor(newInitialColor) {
-                    mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: newColor, range: NSMakeRange(i, 1))
-                    self.updateNumWhiteCharactersForColor(newColor)
+                let currentAlpha = CGColorGetAlpha(value?.CGColor)
+                let shouldUpdateAlpha : Bool = (self.isFadedOut() && currentAlpha>0) || (self.isFadedOut() && currentAlpha < 1) || ((now - self.beginTime) >= Double(self.characterAnimationDelays[i]))
+                
+                
+                if !shouldUpdateAlpha {
+                    return;
                 }
                 
+                
+                var percentage : CGFloat = CGFloat(now - self.beginTime - Double(self.characterAnimationDelays[i])) / CGFloat( Double(self.characterAnimationDurations[i]));
+                if (self.isFadedOut()) {
+                    percentage = 1 - percentage;
+                }
+                let color = self.secretLabel1.textColor.colorWithAlphaComponent(percentage)
+                self.attributedString?.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
             })
         }
         
-        return mutableAttributedString.copy() as! NSAttributedString
+        
+        secretLabel1.attributedText = attributedString
 
-    }
-    
-    
-    func updateNumWhiteCharactersForColor(color : UIColor){
-        let alpha : CGFloat = CGColorGetAlpha(color.CGColor)
-        if alpha == 1.0{
-            numWhiteCharacters++
-        }
-    }
-    
-    
-    func whiteColorFromInitialColor(initialColor : UIColor) -> UIColor{
-        
-        var newColor : UIColor!
-        
-        if initialColor == UIColor.clearColor(){
-            newColor = whiteColorWithClearColorProbability(4)
-        }else{
-            let alpha :CGFloat = CGColorGetAlpha(initialColor.CGColor)
-            
-            if alpha != 1.0 {
-                newColor = whiteColorWithMinAlpha(alpha)
+        if now > endTime {
+            displaylink!.paused = true;
+            if ((completion) != nil) {
+                completion!()
             }
         }
-        
-        if newColor == nil{
-            newColor = UIColor()
-        }
-        
-        return newColor
-    }
-    
-    
-    
-    func whiteColorWithClearColorProbability(probability : NSInteger)->UIColor{
-        
-        var color : UIColor  = UIColor()
-        let colorIndex = Int(arc4random()) % probability
-        
-        if colorIndex != 0{
-            color = UIColor.clearColor()
-        }else{
-            color = whiteColorWithMinAlpha(0.0)
-        }
-        
-        return color
-    }
-    
-    
-    func whiteColorWithMinAlpha(minAlpha : CGFloat) -> UIColor{
-        
-        let randomValue = Int(arc4random_uniform(UInt32(100 - minAlpha * 100 + 1)))
-        let randomNumber = Int(minAlpha * 100) + randomValue
-        let randomAlpha : CGFloat = CGFloat(randomNumber) / 100.0
-        let color = UIColor(white: 1.0, alpha: randomAlpha)
-        return color
     }
 
     
-    override func prefersStatusBarHidden()->Bool{
-        return true
+    
+    func isShining()->Bool{
+        return !(displaylink?.paused != nil)
     }
+
+    func isFadedOut()->Bool{
+        return fadedOut
+    }
+
+    func isVisible()->Bool{
+        return (false == isFadedOut())
+    }
+    
+    
+    func fadeOut(){
+    
+        fadeOutWithCompletion { () -> Void in
+            //nothing
+        }
+    }
+    
+    func fadeOutWithCompletion(completionNew:VoidClosure ) {
+        if isShining() && isFadedOut() {
+            completion = completionNew
+            fadedOut = true
+            startAnimationWithDuration(fadeoutDuration)
+        }
+    }
+    
     
 }
