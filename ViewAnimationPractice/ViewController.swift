@@ -785,9 +785,8 @@ class ViewController: UIViewController {
 
         secretLabel1.textColor  = UIColor.whiteColor()
         
-        let assignedString = NSAttributedString(string: "This is a my replication of Secret's text animation. It looks like one fancy label, but it's actually two UITextLabels on top of each other! What do you think?")
+        let assignedString = NSAttributedString(string: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
         setAttributedText(assignedString)
-        //attributedString = assignedString.mutableCopy() as? NSMutableAttributedString
         
         displaylink = CADisplayLink(target: self, selector: "updateAttributedString")
         displaylink!.paused = true
@@ -813,6 +812,7 @@ class ViewController: UIViewController {
         }
     }
 
+    
     func initialAttributedStringFromAttributedString(attributedString : NSAttributedString) ->NSMutableAttributedString{
         let mutableAttributedString = attributedString.mutableCopy()
         
@@ -821,14 +821,14 @@ class ViewController: UIViewController {
         return mutableAttributedString as! NSMutableAttributedString
     }
     
+    
     func shine(){
         shineWithCompletion { () -> Void in
             //do nothing
         }
     }
     
-    
-    
+
     func shineWithCompletion(completionNew: VoidClosure) {
         if !isShining() && !isFadedOut() {
             completion = completionNew
@@ -837,12 +837,14 @@ class ViewController: UIViewController {
         }
     }
 
+    
     func startAnimationWithDuration(duration: CFTimeInterval){
         beginTime = CACurrentMediaTime()
         endTime = beginTime + shineDuration
         displaylink!.paused = false
 
     }
+    
     
     func updateAttributedString(){
         
@@ -888,15 +890,16 @@ class ViewController: UIViewController {
     }
 
     
-    
     func isShining()->Bool{
         return !(displaylink?.paused != nil)
     }
 
+    
     func isFadedOut()->Bool{
         return fadedOut
     }
 
+    
     func isVisible()->Bool{
         return (false == isFadedOut())
     }
@@ -908,6 +911,7 @@ class ViewController: UIViewController {
             //nothing
         }
     }
+    
     
     func fadeOutWithCompletion(completionNew:VoidClosure ) {
         if isShining() && isFadedOut() {
