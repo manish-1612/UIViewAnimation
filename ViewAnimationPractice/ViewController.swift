@@ -784,7 +784,7 @@ class ViewController: UIViewController {
 
         secretLabel1.textColor  = UIColor.whiteColor()
         
-        let assignedString = NSAttributedString(string: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
+        let assignedString = NSAttributedString(string: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut")
         setAttributedText(assignedString)
         
         displaylink = CADisplayLink(target: self, selector: "updateAttributedString")
