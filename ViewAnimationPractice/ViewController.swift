@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var secretLabel1: UILabel!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     
     
     var animatingView : UIView!
@@ -51,12 +52,11 @@ class ViewController: UIViewController {
     var displaylink : CADisplayLink?
     var beginTime : CFTimeInterval = 0.0
     var endTime : CFTimeInterval = 0.0
-
-    
-    
-    
     var completion : VoidClosure?
     
+    
+    var customBar  : FlexibleBar?
+    var delegateSplitter : BLKDelegateSplitter?
     
     // MARK :- Lifecycle methods
     override func viewDidLoad() {
@@ -67,6 +67,7 @@ class ViewController: UIViewController {
         swiftAnimationLabel.hidden = true
         optionsButton.hidden = true
         secretLabel1.hidden = true
+        scrollView.hidden = true
         
         //animateUILabel()
         //draw8WithAnimation()
@@ -300,7 +301,10 @@ class ViewController: UIViewController {
         
         
         //create secret text animation
-        createSecretTextAnimation()
+        //createSecretTextAnimation()
+        
+        //create vertical parallax animation
+        createVerticalParallaxAnimation()
 
     }
     
@@ -905,7 +909,6 @@ class ViewController: UIViewController {
     
     
     func fadeOut(){
-    
         fadeOutWithCompletion { () -> Void in
             //nothing
         }
@@ -918,6 +921,33 @@ class ViewController: UIViewController {
             fadedOut = true
             startAnimationWithDuration(fadeoutDuration)
         }
+    }
+    
+    //MARK:- create vertical parallax animation
+    func createVerticalParallaxAnimation(){
+        scrollView.hidden = false
+        
+        
+        
+        //create the custom bar
+        customBar = FlexibleBar(frame: CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0), andHeaderText: "Skill Set", andDescriptionString: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod")
+        
+         let behaviorDefiner = SquareCashStyleBehaviorDefiner()
+         behaviorDefiner.addSnappingPositionProgress(0.0, forProgressRangeStart: 0.0, end: 0.5)
+        behaviorDefiner.addSnappingPositionProgress(1.0, forProgressRangeStart: 0.5, end: 1.0)
+        behaviorDefiner.snappingEnabled = true
+        behaviorDefiner.elasticMaximumHeightAtTop = false
+        customBar!.behaviorDefiner = behaviorDefiner
+        
+
+        // Configure a separate UITableViewDelegate and UIScrollViewDelegate (optional)
+        delegateSplitter = BLKDelegateSplitter(firstDelegate: behaviorDefiner, secondDelegate: self)
+        scrollView.delegate = self.delegateSplitter as? UIScrollViewDelegate
+        self.view.addSubview(customBar!)
+    
+    
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 2 * self.view.frame.size.height)
+    
     }
     
     

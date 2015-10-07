@@ -53,6 +53,10 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMw-aF-sFQ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="0.19206466942308587" green="0.6597147493461345" blue="0.67461951955425525" alpha="1" colorSpace="calibratedRGB"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -60,13 +64,14 @@
                     <connections>
                         <outlet property="iOSLabel" destination="MKS-Oo-P92" id="er0-ea-Uh9"/>
                         <outlet property="optionsButton" destination="h4e-9z-eFA" id="SPg-vq-7em"/>
+                        <outlet property="scrollView" destination="aMw-aF-sFQ" id="dqI-X0-iyf"/>
                         <outlet property="secretLabel1" destination="H8r-T3-2K2" id="OCT-0N-d6c"/>
                         <outlet property="swiftAnimationLabel" destination="qTk-4T-UDT" id="q6f-oI-adv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="273" y="113"/>
+            <point key="canvasLocation" x="25" y="83"/>
         </scene>
     </scenes>
 </document>
