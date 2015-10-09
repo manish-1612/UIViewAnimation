@@ -22,7 +22,6 @@ class FlexibleBar: BLKFlexibleHeightBar {
     init(frame: CGRect , andHeaderText headerText:String, andDescriptionString descriptionString: String){
         super.init(frame: frame)
         configureBarwithframe(frame, andHeaderText: headerText, andDescriptionString: descriptionString)
-
     }
     
     
@@ -31,25 +30,21 @@ class FlexibleBar: BLKFlexibleHeightBar {
     }
 
     
-    
     func configureBarwithframe(frame: CGRect , andHeaderText headerText:String, andDescriptionString descriptionString: String){
         
         self.maximumBarHeight = 200.0
         self.minimumBarHeight = 65.0;
         self.backgroundColor = UIColor(red: 0.17, green: 0.63, blue: 0.11, alpha: 1.0)
-        
-        
-        
+te
         //add header label
         let labelForHeader = UILabel(frame: CGRectMake(20.0, 66.0, UIScreen.mainScreen().bounds.size.width - 40.0, 20.0))
         labelForHeader.textColor = UIColor.whiteColor()
         labelForHeader.text = headerText
         labelForHeader.font = UIFont(name: "System", size: 22.0)
         labelForHeader.textAlignment = NSTextAlignment.Center
-        labelForHeader.backgroundColor = UIColor.clearColor()
+        labelForHeader.backgroundColor = UIColor.redColor()
         labelForHeader.numberOfLines = 0
         labelForHeader.sizeToFit()
-        
         
         let initialHeaderLabelLayoutAttributes = BLKFlexibleHeightBarSubviewLayoutAttributes()
         initialHeaderLabelLayoutAttributes.size = labelForHeader.sizeThatFits(CGSizeZero)

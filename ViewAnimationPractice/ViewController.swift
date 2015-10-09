@@ -927,10 +927,8 @@ class ViewController: UIViewController {
     func createVerticalParallaxAnimation(){
         scrollView.hidden = false
         
-        
-        
         //create the custom bar
-        customBar = FlexibleBar(frame: CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0), andHeaderText: "Skill Set", andDescriptionString: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod")
+        customBar = FlexibleBar(frame: CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 200.0), andHeaderText: "Skill Set", andDescriptionString: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod")
         
          let behaviorDefiner = SquareCashStyleBehaviorDefiner()
          behaviorDefiner.addSnappingPositionProgress(0.0, forProgressRangeStart: 0.0, end: 0.5)
