@@ -937,7 +937,6 @@ class ViewController: UIViewController {
         //buttonForRipple.layer.borderColor = UIColor.blackColor().CGColor
         //buttonForRipple.layer.borderWidth = 2.0
         
-        
         //layer config
         buttonForRipple.layer.masksToBounds = true
         let radius = buttonForRipple.frame.size.width/2
@@ -949,7 +948,6 @@ class ViewController: UIViewController {
         rippleLayer!.backgroundColor = UIColor.lightGrayColor().CGColor
         rippleLayer!.opacity = 0
         rippleLayer!.masksToBounds = true
-        
     }
     
         
