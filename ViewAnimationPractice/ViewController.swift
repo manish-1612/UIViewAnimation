@@ -943,7 +943,7 @@ class ViewController: UIViewController {
         let diameter = radius * 2
         rippleLayer = CALayer()
         rippleLayer!.frame=CGRectMake(0, 0, CGFloat(diameter), CGFloat(diameter))
-        rippleLayer!.cornerRadius = buttonForRipple.frame.size.height/2
+        rippleLayer!.cornerRadius = rippleLayer!.frame.size.height/2
         rippleLayer!.position=CGPointMake(buttonForRipple.layer.frame.size.width/2, buttonForRipple.layer.frame.size.height/2)
         rippleLayer!.backgroundColor = UIColor.lightGrayColor().CGColor
         rippleLayer!.opacity = 0
