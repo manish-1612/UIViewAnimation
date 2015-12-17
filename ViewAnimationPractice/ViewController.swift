@@ -17,15 +17,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var iOSLabel: UILabel!
     @IBOutlet weak var swiftAnimationLabel: UILabel!
-    
     @IBOutlet weak var secretLabel1: UILabel!
-    
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var buttonForRipple: UIButton!
+    
     
     
     var animatingView : UIView!
     let buttonDiameter : CGFloat = 50.0
-    let numberOfButtons : Int = 4
+    let numberOfButtons : Int = 7
+    let spreadAngle = 180.0
+    let extraCoefficeintAngle = 0.0
+    
     var button : UIButton!
     let perRowButton : Int = 3
     var arrayOfButtons : [UIButton] = []
@@ -53,10 +56,9 @@ class ViewController: UIViewController {
     var beginTime : CFTimeInterval = 0.0
     var endTime : CFTimeInterval = 0.0
     var completion : VoidClosure?
+    var rippleLayer : CALayer?
     
     
-    var customBar  : FlexibleBar?
-    var delegateSplitter : BLKDelegateSplitter?
     
     // MARK :- Lifecycle methods
     override func viewDidLoad() {
@@ -68,6 +70,7 @@ class ViewController: UIViewController {
         optionsButton.hidden = true
         secretLabel1.hidden = true
         scrollView.hidden = true
+        buttonForRipple.hidden = true
         
         //animateUILabel()
         //draw8WithAnimation()
@@ -303,9 +306,11 @@ class ViewController: UIViewController {
         //create secret text animation
         //createSecretTextAnimation()
         
-        //create vertical parallax animation
-        createVerticalParallaxAnimation()
-
+        
+        
+        //create ripple effect
+        createRippleEffect()
+        
     }
     
     
@@ -566,10 +571,10 @@ class ViewController: UIViewController {
                     if backButton.tag == i{
                         
                         let radius : Double = 100.0
-                        let angle : Double = Double(i) * 90.0 / Double(self.numberOfButtons - 1)
+                        let angle : Double = Double(i) * spreadAngle / Double(self.numberOfButtons - 1)
                         
-                        let originX : CGFloat = CGFloat (radius * sin(M_PI / 180.0 * (angle + 45.0)))
-                        let originY : CGFloat = CGFloat (radius * -cos(M_PI / 180.0 * (angle + 45.0)))
+                        let originX : CGFloat = CGFloat (radius * sin(M_PI / 180.0 * (angle + extraCoefficeintAngle)))
+                        let originY : CGFloat = CGFloat (radius * cos(M_PI / 180.0 * (angle + extraCoefficeintAngle)))
                         
                         UIView.animateWithDuration(0.6, delay:Double(i)*0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10.0, options: [.CurveEaseInOut, .AllowUserInteraction], animations: { () -> Void in
                             backButton.center = CGPoint(x: originX + self.button.center.x, y: (self.button.center.y - originY) )
@@ -923,30 +928,61 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK:- create vertical parallax animation
-    func createVerticalParallaxAnimation(){
-        scrollView.hidden = false
-        
-        //create the custom bar
-        customBar = FlexibleBar(frame: CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 200.0), andHeaderText: "Skill Set", andDescriptionString: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod")
-        
-         let behaviorDefiner = SquareCashStyleBehaviorDefiner()
-         behaviorDefiner.addSnappingPositionProgress(0.0, forProgressRangeStart: 0.0, end: 0.5)
-        behaviorDefiner.addSnappingPositionProgress(1.0, forProgressRangeStart: 0.5, end: 1.0)
-        behaviorDefiner.snappingEnabled = true
-        behaviorDefiner.elasticMaximumHeightAtTop = false
-        customBar!.behaviorDefiner = behaviorDefiner
-        
-
-        // Configure a separate UITableViewDelegate and UIScrollViewDelegate (optional)
-        delegateSplitter = BLKDelegateSplitter(firstDelegate: behaviorDefiner, secondDelegate: self)
-        scrollView.delegate = self.delegateSplitter as? UIScrollViewDelegate
-        self.view.addSubview(customBar!)
     
-    
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 2 * self.view.frame.size.height)
-    
+    //MARK:- Ripple Effect
+    func createRippleEffect(){
+        buttonForRipple.hidden = false
+        buttonForRipple.layer.cornerRadius = 10.0
+        buttonForRipple.backgroundColor = UIColor.whiteColor()
+        //buttonForRipple.layer.borderColor = UIColor.blackColor().CGColor
+        //buttonForRipple.layer.borderWidth = 2.0
+        
+        
+        //layer config
+        buttonForRipple.layer.masksToBounds = true
+        let radius = buttonForRipple.frame.size.width/2
+        let diameter = radius * 2
+        rippleLayer = CALayer()
+        rippleLayer!.frame=CGRectMake(0, 0, CGFloat(diameter), CGFloat(diameter))
+        rippleLayer!.cornerRadius = buttonForRipple.frame.size.height/2
+        rippleLayer!.position=CGPointMake(buttonForRipple.layer.frame.size.width/2, buttonForRipple.layer.frame.size.height/2)
+        rippleLayer!.backgroundColor = UIColor.lightGrayColor().CGColor
+        rippleLayer!.opacity = 0
+        rippleLayer!.masksToBounds = true
+        
     }
     
+        
+    @IBAction func rippleButtonClicked(sender: AnyObject) {
+        
+        
+        let defaultCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+        
+        let animationGroup = CAAnimationGroup()
+        animationGroup.duration = 1.0
+        animationGroup.repeatCount = 0
+        animationGroup.removedOnCompletion = true
+        animationGroup.timingFunction = defaultCurve
+
+        //color spreading
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnimation.fromValue = 0.1
+        scaleAnimation.toValue = 1
+        scaleAnimation.duration = 1.0
+        scaleAnimation.autoreverses = false;
+        
+        
+        let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
+        opacityAnimation.duration = 1.0
+        opacityAnimation.values = [0.0, 0.5, 0.0]
+        opacityAnimation.keyTimes = [0, 0.3, 1]
+        opacityAnimation.removedOnCompletion = true
+        
+        let animations = [scaleAnimation, opacityAnimation]
+        animationGroup.animations = animations
+        rippleLayer!.addAnimation(animationGroup, forKey: nil)
+        buttonForRipple.layer.insertSublayer(rippleLayer!, above:buttonForRipple.layer)
+        
+    }
     
 }

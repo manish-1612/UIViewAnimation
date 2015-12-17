@@ -15,14 +15,6 @@
 		79E8E18C1BA8470A00743A63 /* ViewAnimationPracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E8E18B1BA8470A00743A63 /* ViewAnimationPracticeTests.swift */; };
 		79EC49F11BAB095500B53C40 /* 52084.png in Resources */ = {isa = PBXBuildFile; fileRef = 79EC49F01BAB095500B53C40 /* 52084.png */; };
 		79EC49F31BAB0F9000B53C40 /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = 79EC49F21BAB0F9000B53C40 /* cross.png */; };
-		79EDB0A61BC5411D005217AA /* BLKDelegateSplitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EDB0971BC5411D005217AA /* BLKDelegateSplitter.m */; settings = {ASSET_TAGS = (); }; };
-		79EDB0A71BC5411D005217AA /* BLKFlexibleHeightBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EDB0991BC5411D005217AA /* BLKFlexibleHeightBar.m */; settings = {ASSET_TAGS = (); }; };
-		79EDB0A81BC5411D005217AA /* BLKFlexibleHeightBarBehaviorDefiner.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EDB09B1BC5411D005217AA /* BLKFlexibleHeightBarBehaviorDefiner.m */; settings = {ASSET_TAGS = (); }; };
-		79EDB0A91BC5411D005217AA /* BLKFlexibleHeightBarSubviewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EDB09D1BC5411D005217AA /* BLKFlexibleHeightBarSubviewLayoutAttributes.m */; settings = {ASSET_TAGS = (); }; };
-		79EDB0AA1BC5411D005217AA /* FacebookStyleBarBehaviorDefiner.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EDB09F1BC5411D005217AA /* FacebookStyleBarBehaviorDefiner.m */; settings = {ASSET_TAGS = (); }; };
-		79EDB0AB1BC5411D005217AA /* SquareCashStyleBehaviorDefiner.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EDB0A11BC5411D005217AA /* SquareCashStyleBehaviorDefiner.m */; settings = {ASSET_TAGS = (); }; };
-		79EDB0AC1BC5411D005217AA /* UIView+BLKFlexibleHeightBarSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EDB0A31BC5411D005217AA /* UIView+BLKFlexibleHeightBarSubview.m */; settings = {ASSET_TAGS = (); }; };
-		79EDB0AF1BC54183005217AA /* FlexibleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EDB0AE1BC54183005217AA /* FlexibleBar.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,21 +41,6 @@
 		79EC49F01BAB095500B53C40 /* 52084.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 52084.png; sourceTree = "<group>"; };
 		79EC49F21BAB0F9000B53C40 /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
 		79EDB0901BC54107005217AA /* ViewAnimationPractice-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ViewAnimationPractice-Bridging-Header.h"; sourceTree = "<group>"; };
-		79EDB0961BC5411D005217AA /* BLKDelegateSplitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLKDelegateSplitter.h; sourceTree = "<group>"; };
-		79EDB0971BC5411D005217AA /* BLKDelegateSplitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLKDelegateSplitter.m; sourceTree = "<group>"; };
-		79EDB0981BC5411D005217AA /* BLKFlexibleHeightBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLKFlexibleHeightBar.h; sourceTree = "<group>"; };
-		79EDB0991BC5411D005217AA /* BLKFlexibleHeightBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLKFlexibleHeightBar.m; sourceTree = "<group>"; };
-		79EDB09A1BC5411D005217AA /* BLKFlexibleHeightBarBehaviorDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLKFlexibleHeightBarBehaviorDefiner.h; sourceTree = "<group>"; };
-		79EDB09B1BC5411D005217AA /* BLKFlexibleHeightBarBehaviorDefiner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLKFlexibleHeightBarBehaviorDefiner.m; sourceTree = "<group>"; };
-		79EDB09C1BC5411D005217AA /* BLKFlexibleHeightBarSubviewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLKFlexibleHeightBarSubviewLayoutAttributes.h; sourceTree = "<group>"; };
-		79EDB09D1BC5411D005217AA /* BLKFlexibleHeightBarSubviewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLKFlexibleHeightBarSubviewLayoutAttributes.m; sourceTree = "<group>"; };
-		79EDB09E1BC5411D005217AA /* FacebookStyleBarBehaviorDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookStyleBarBehaviorDefiner.h; sourceTree = "<group>"; };
-		79EDB09F1BC5411D005217AA /* FacebookStyleBarBehaviorDefiner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookStyleBarBehaviorDefiner.m; sourceTree = "<group>"; };
-		79EDB0A01BC5411D005217AA /* SquareCashStyleBehaviorDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCashStyleBehaviorDefiner.h; sourceTree = "<group>"; };
-		79EDB0A11BC5411D005217AA /* SquareCashStyleBehaviorDefiner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCashStyleBehaviorDefiner.m; sourceTree = "<group>"; };
-		79EDB0A21BC5411D005217AA /* UIView+BLKFlexibleHeightBarSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BLKFlexibleHeightBarSubview.h"; sourceTree = "<group>"; };
-		79EDB0A31BC5411D005217AA /* UIView+BLKFlexibleHeightBarSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BLKFlexibleHeightBarSubview.m"; sourceTree = "<group>"; };
-		79EDB0AE1BC54183005217AA /* FlexibleBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +84,6 @@
 			children = (
 				79E8E1751BA8470A00743A63 /* AppDelegate.swift */,
 				79E8E1771BA8470A00743A63 /* ViewController.swift */,
-				79EDB0AE1BC54183005217AA /* FlexibleBar.swift */,
 				79E8E1791BA8470A00743A63 /* Main.storyboard */,
 				79E8E17C1BA8470A00743A63 /* Images.xcassets */,
 				79E8E17E1BA8470A00743A63 /* LaunchScreen.xib */,
@@ -119,7 +95,6 @@
 		79E8E1731BA8470A00743A63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				79EDB0941BC5411D005217AA /* BLKFlexibleHeightBar */,
 				79EC49F21BAB0F9000B53C40 /* cross.png */,
 				79EC49F01BAB095500B53C40 /* 52084.png */,
 				79E8E1741BA8470A00743A63 /* Info.plist */,
@@ -143,35 +118,6 @@
 				79E8E18A1BA8470A00743A63 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		79EDB0941BC5411D005217AA /* BLKFlexibleHeightBar */ = {
-			isa = PBXGroup;
-			children = (
-				79EDB0951BC5411D005217AA /* BLKFlexibleHeightBar */,
-			);
-			path = BLKFlexibleHeightBar;
-			sourceTree = "<group>";
-		};
-		79EDB0951BC5411D005217AA /* BLKFlexibleHeightBar */ = {
-			isa = PBXGroup;
-			children = (
-				79EDB0961BC5411D005217AA /* BLKDelegateSplitter.h */,
-				79EDB0971BC5411D005217AA /* BLKDelegateSplitter.m */,
-				79EDB0981BC5411D005217AA /* BLKFlexibleHeightBar.h */,
-				79EDB0991BC5411D005217AA /* BLKFlexibleHeightBar.m */,
-				79EDB09A1BC5411D005217AA /* BLKFlexibleHeightBarBehaviorDefiner.h */,
-				79EDB09B1BC5411D005217AA /* BLKFlexibleHeightBarBehaviorDefiner.m */,
-				79EDB09C1BC5411D005217AA /* BLKFlexibleHeightBarSubviewLayoutAttributes.h */,
-				79EDB09D1BC5411D005217AA /* BLKFlexibleHeightBarSubviewLayoutAttributes.m */,
-				79EDB09E1BC5411D005217AA /* FacebookStyleBarBehaviorDefiner.h */,
-				79EDB09F1BC5411D005217AA /* FacebookStyleBarBehaviorDefiner.m */,
-				79EDB0A01BC5411D005217AA /* SquareCashStyleBehaviorDefiner.h */,
-				79EDB0A11BC5411D005217AA /* SquareCashStyleBehaviorDefiner.m */,
-				79EDB0A21BC5411D005217AA /* UIView+BLKFlexibleHeightBarSubview.h */,
-				79EDB0A31BC5411D005217AA /* UIView+BLKFlexibleHeightBarSubview.m */,
-			);
-			path = BLKFlexibleHeightBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,16 +224,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79EDB0AF1BC54183005217AA /* FlexibleBar.swift in Sources */,
-				79EDB0AA1BC5411D005217AA /* FacebookStyleBarBehaviorDefiner.m in Sources */,
-				79EDB0A91BC5411D005217AA /* BLKFlexibleHeightBarSubviewLayoutAttributes.m in Sources */,
-				79EDB0AB1BC5411D005217AA /* SquareCashStyleBehaviorDefiner.m in Sources */,
-				79EDB0AC1BC5411D005217AA /* UIView+BLKFlexibleHeightBarSubview.m in Sources */,
-				79EDB0A81BC5411D005217AA /* BLKFlexibleHeightBarBehaviorDefiner.m in Sources */,
 				79E8E1781BA8470A00743A63 /* ViewController.swift in Sources */,
-				79EDB0A61BC5411D005217AA /* BLKDelegateSplitter.m in Sources */,
 				79E8E1761BA8470A00743A63 /* AppDelegate.swift in Sources */,
-				79EDB0A71BC5411D005217AA /* BLKFlexibleHeightBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
