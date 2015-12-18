@@ -955,7 +955,7 @@ class ViewController: UIViewController {
         let defaultCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
         
         let animationGroup = CAAnimationGroup()
-        animationGroup.duration = 1.0
+        animationGroup.duration = 0.7
         animationGroup.repeatCount = 0
         animationGroup.removedOnCompletion = true
         animationGroup.timingFunction = defaultCurve
@@ -964,12 +964,12 @@ class ViewController: UIViewController {
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
         scaleAnimation.fromValue = 0.1
         scaleAnimation.toValue = 1
-        scaleAnimation.duration = 1.0
+        scaleAnimation.duration = 0.7
         scaleAnimation.autoreverses = false;
         
         
         let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
-        opacityAnimation.duration = 1.0
+        opacityAnimation.duration = 0.7
         opacityAnimation.values = [0.0, 0.5, 0.0]
         opacityAnimation.keyTimes = [0, 0.3, 1]
         opacityAnimation.removedOnCompletion = true
