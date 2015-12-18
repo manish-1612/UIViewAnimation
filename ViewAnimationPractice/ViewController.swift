@@ -934,8 +934,6 @@ class ViewController: UIViewController {
         buttonForRipple.hidden = false
         buttonForRipple.layer.cornerRadius = 10.0
         buttonForRipple.backgroundColor = UIColor.whiteColor()
-        //buttonForRipple.layer.borderColor = UIColor.blackColor().CGColor
-        //buttonForRipple.layer.borderWidth = 2.0
         
         //layer config
         buttonForRipple.layer.masksToBounds = true
